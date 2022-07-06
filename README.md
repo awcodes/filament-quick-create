@@ -2,7 +2,8 @@
 
 Plugin for Filament Admin that adds a dropdown menu to the header to quickly create new items from any page.
 
-![Screen shot of Filament quick create in use](./images/screen-shot.jpg)
+![Screen shot of Filament quick create in use in dark mode](./images/screen-shot.jpg)
+![Screen shot of Filament quick create in use in light mode](./images/screen-shot-light.jpg)
 
 ## Installation
 
