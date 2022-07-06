@@ -6,8 +6,9 @@
 >
     <button
         x-on:click="isOpen = ! isOpen"
+        style="margin-inline-start: 1rem;"
         @class([
-            'flex flex-shrink-0 w-10 h-10 rounded-full bg-gray-200 items-center justify-center ml-4',
+            'flex flex-shrink-0 w-10 h-10 rounded-full bg-gray-200 items-center justify-center',
             'dark:bg-gray-900' => config('filament.dark_mode'),
         ])
     >
