@@ -25,7 +25,7 @@
         x-transition:leave-start="translate-y-0 opacity-100"
         x-transition:leave-end="-translate-y-1 opacity-0"
         x-cloak
-        class="absolute right-0 z-10 mt-2 overflow-scroll shadow-xl rtl:right-auto rtl:left-0 rounded-xl w-52 top-full"
+        class="absolute right-0 z-10 mt-2 overflow-y-auto shadow-xl rtl:right-auto rtl:left-0 rounded-xl w-52 top-full"
         style="max-height: 15rem;"
     >
         <ul @class([
