@@ -1,11 +1,9 @@
 <div
-    x-data="{
-        isOpen: false,
-    }"
+    x-data
     class="relative"
 >
     <button
-        x-on:click="isOpen = ! isOpen"
+        x-on:click="$refs.quickCreatePanel.toggle"
         style="margin-inline-start: 1rem;"
         @class([
             'flex flex-shrink-0 w-10 h-10 rounded-full bg-gray-200 items-center justify-center',
@@ -16,8 +14,8 @@
     </button>
 
     <div
-        x-show="isOpen"
-        x-on:click.away="isOpen = false"
+        x-ref="quickCreatePanel"
+        x-float.placement.bottom-end.flip
         x-transition:enter="transition"
         x-transition:enter-start="-translate-y-1 opacity-0"
         x-transition:enter-end="translate-y-0 opacity-100"
@@ -25,7 +23,7 @@
         x-transition:leave-start="translate-y-0 opacity-100"
         x-transition:leave-end="-translate-y-1 opacity-0"
         x-cloak
-        class="absolute right-0 z-10 mt-2 overflow-y-auto shadow-xl rtl:right-auto rtl:left-0 rounded-xl w-52 top-full"
+        class="absolute hidden z-10 mt-2 overflow-y-auto shadow-xl rounded-xl w-52 top-full"
         style="max-height: 15rem;"
     >
         <ul @class([
