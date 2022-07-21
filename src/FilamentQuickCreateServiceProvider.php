@@ -17,6 +17,7 @@ class FilamentQuickCreateServiceProvider extends PluginServiceProvider
     {
         $package
             ->name('filament-quick-create')
+            ->hasConfigFile()
             ->hasViews();
     }
 
@@ -34,18 +35,24 @@ class FilamentQuickCreateServiceProvider extends PluginServiceProvider
 
     public function getFilamentResouces()
     {
-        $resources = array_map(function($resource) {
-            $resource = App::make($resource);
-            $route = $resource->getRouteBaseName() . '.create';
-            if ($resource->canCreate() && Route::has($route)) {
-                $navItems = $resource->getNavigationItems();
-                return [
-                    'label' => Str::title($resource->getModelLabel()),
-                    'icon' => $navItems[0]->getIcon(),
-                    'url' => route($route)
-                ];
-            }
-        }, Filament::getResources());
+        $resources = collect(Filament::getResources())
+            ->filter(function ($resource) {
+                return ! in_array($resource, config('filament-quick-create.exclude'));
+            })
+            ->map(function ($resource) {
+                $resource = App::make($resource);
+                $route = $resource->getRouteBaseName() . '.create';
+                if ($resource->canCreate() && Route::has($route)) {
+                    $navItems = $resource->getNavigationItems();
+                    return [
+                        'label' => Str::title($resource->getModelLabel()),
+                        'icon' => $navItems[0]->getIcon(),
+                        'url' => route($route)
+                    ];
+                }
+            })
+            ->values()
+            ->toArray();
 
         return array_filter($resources);
     }
