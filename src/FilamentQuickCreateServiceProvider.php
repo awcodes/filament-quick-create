@@ -51,6 +51,7 @@ class FilamentQuickCreateServiceProvider extends PluginServiceProvider
                     ];
                 }
             })
+            ->sortBy('label')
             ->values()
             ->toArray();
 
