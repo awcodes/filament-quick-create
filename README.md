@@ -18,7 +18,7 @@ composer require awcodes/filament-quick-create
 Publish the config file.
 
 ```bash
-php artisan vendor:publish tag=filament-quick-create-config
+php artisan vendor:publish --tag="filament-quick-create-config"
 ```
 
 Then just add the Resource Classes that you want to exclude.
