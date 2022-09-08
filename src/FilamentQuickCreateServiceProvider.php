@@ -43,10 +43,10 @@ class FilamentQuickCreateServiceProvider extends PluginServiceProvider
                 $resource = App::make($resource);
                 $route = $resource->getRouteBaseName() . '.create';
                 if ($resource->canCreate() && Route::has($route)) {
-                    $navItems = $resource->getNavigationItems();
+                    $icon = invade($resource)->getNavigationIcon();
                     return [
-                        'label' => Str::title($resource->getModelLabel()),
-                        'icon' => $navItems[0]->getIcon(),
+                        'label' => Str::ucfirst($resource->getModelLabel()),
+                        'icon' => $icon,
                         'url' => route($route)
                     ];
                 }

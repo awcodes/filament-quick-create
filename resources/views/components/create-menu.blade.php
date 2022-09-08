@@ -23,8 +23,8 @@
         x-transition:leave-start="translate-y-0 opacity-100"
         x-transition:leave-end="-translate-y-1 opacity-0"
         x-cloak
-        class="absolute hidden z-10 mt-2 overflow-y-auto shadow-xl rounded-xl w-52 top-full"
-        style="max-height: 15rem;"
+        class="absolute hidden z-10 mt-2 overflow-y-auto shadow-xl rounded-xl top-full"
+        style="max-height: 15rem; min-width: 208px;"
     >
         <ul @class([
             'py-1 space-y-1 overflow-hidden bg-white shadow rounded-xl',
