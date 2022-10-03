@@ -1,3 +1,4 @@
+@if ($items)
 <div
     x-data
     class="relative"
@@ -43,3 +44,4 @@
         </ul>
     </div>
 </div>
+@endif
