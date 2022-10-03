@@ -10,7 +10,7 @@
             'dark:bg-gray-900' => config('filament.dark_mode'),
         ])
     >
-        <x-heroicon-o-plus class="w-4 h-4" />
+        @svg('heroicon-o-plus', 'w-4 h-4')
     </button>
 
     <div
