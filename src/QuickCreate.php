@@ -5,20 +5,21 @@ namespace FilamentQuickCreate;
 use Closure;
 use Filament\Facades\Filament;
 
-class QuickCreate {
-
+class QuickCreate
+{
     public Closure $getResourcesUsing;
 
     public bool $sort = true;
 
     public function __construct()
     {
-        $this->getResourcesUsing(fn() => Filament::getResources());
+        $this->getResourcesUsing(fn () => Filament::getResources());
     }
 
     public function sort(bool $sort): static
     {
         $this->sort = $sort;
+
         return $this;
     }
 
@@ -30,9 +31,10 @@ class QuickCreate {
     public function getResourcesUsing(Closure $callback): static
     {
         $this->getResourcesUsing = $callback;
+
         return $this;
     }
-    
+
     public function evaluate($value, array $parameters = [])
     {
         if ($value instanceof Closure) {
@@ -41,6 +43,7 @@ class QuickCreate {
                 $parameters
             );
         }
+
         return $value;
     }
 

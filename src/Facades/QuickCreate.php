@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Facade;
  *
  * @see \FilamentQuickCreate\QuickCreate
  */
-
 class QuickCreate extends Facade
 {
     /**

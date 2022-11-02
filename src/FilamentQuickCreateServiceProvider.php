@@ -20,7 +20,7 @@ class FilamentQuickCreateServiceProvider extends PluginServiceProvider
             ->hasConfigFile()
             ->hasViews();
     }
-    
+
     public function packageRegistered(): void
     {
         $this->app->scoped(Facade::class, function () {
@@ -35,7 +35,7 @@ class FilamentQuickCreateServiceProvider extends PluginServiceProvider
         Filament::registerRenderHook(
             'global-search.end',
             fn (): View => view('filament-quick-create::components.create-menu', [
-                'items' => $this->getFilamentResources()
+                'items' => $this->getFilamentResources(),
             ]),
         );
 
@@ -50,23 +50,21 @@ class FilamentQuickCreateServiceProvider extends PluginServiceProvider
             })
             ->map(function ($resource) {
                 $resource = App::make($resource);
-                $route = $resource->getRouteBaseName() . '.create';
+                $route = $resource->getRouteBaseName().'.create';
                 if ($resource->canCreate() && Route::has($route)) {
                     return [
                         'label' => Str::ucfirst($resource->getModelLabel()),
                         'icon' => invade($resource)->getNavigationIcon(),
-                        'url' => route($route)
+                        'url' => route($route),
                     ];
                 }
 
                 return null;
             })
-            ->when(Facade::sortingEnabled(), fn($collection) => $collection->sortBy('label'))
+            ->when(Facade::sortingEnabled(), fn ($collection) => $collection->sortBy('label'))
             ->values()
             ->toArray();
 
         return array_filter($resources);
     }
-
-  
 }
