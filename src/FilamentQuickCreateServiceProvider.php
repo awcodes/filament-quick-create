@@ -7,6 +7,7 @@ use Illuminate\View\View;
 use Illuminate\Support\Str;
 use Filament\Facades\Filament;
 use Filament\PluginServiceProvider;
+use FilamentQuickCreate\Facades\QuickCreate as Facade;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Spatie\LaravelPackageTools\Package;
@@ -19,6 +20,15 @@ class FilamentQuickCreateServiceProvider extends PluginServiceProvider
             ->name('filament-quick-create')
             ->hasConfigFile()
             ->hasViews();
+    }
+    
+    public function packageRegistered(): void
+    {
+        $this->app->scoped(Facade::class, function () {
+            return new QuickCreate();
+        });
+
+        parent::packageRegistered();
     }
 
     public function boot()
@@ -35,7 +45,7 @@ class FilamentQuickCreateServiceProvider extends PluginServiceProvider
 
     public function getFilamentResouces()
     {
-        $resources = collect(Filament::getResources())
+        $resources = collect(Facade::getResources())
             ->filter(function ($resource) {
                 return ! in_array($resource, config('filament-quick-create.exclude'));
             })
@@ -51,10 +61,12 @@ class FilamentQuickCreateServiceProvider extends PluginServiceProvider
                     ];
                 }
             })
-            ->sortBy('label')
+            ->when(config('filament-quick-create.sort')===true, fn($collection) => $collection->sortBy('label'))
             ->values()
             ->toArray();
 
         return array_filter($resources);
     }
+
+  
 }
