@@ -1,4 +1,4 @@
-@if ($items)
+@if ($resources)
 <div
     x-data
     class="relative"
@@ -31,15 +31,8 @@
             'py-1 space-y-1 overflow-hidden bg-white shadow rounded-xl',
             'dark:border-gray-600 dark:bg-gray-700' => config('filament.dark_mode'),
         ])>
-            @foreach ($items as $resource)
-                <x-filament::dropdown.item
-                    :color="'secondary'"
-                    :href="$resource['url']"
-                    :icon="$resource['icon']"
-                    tag="a"
-                >
-                    {{ $resource['label'] }}
-                </x-filament::dropdown.item>
+            @foreach($resources as $resource)
+                <livewire:quick-create-list-item :resource-name="$resource" />
             @endforeach
         </ul>
     </div>
