@@ -45,8 +45,8 @@ In a service provider, in the boot method, you can use ```QuickCreate::getResour
             ];
         });
     });
-
 ```
+
 ## Disable sorting
 
 ### Using the Facade
@@ -57,12 +57,11 @@ In a service provider, in the boot method, you can use ```QuickCreate::getResour
     Filament::serving(function(){
         QuickCreate::sort(false);
     });
-
 ```
 
 ### Or in the config file
 
-you can disable sorting like so
+You can disable sorting like so
 
 ```php
 'exclude' => [
