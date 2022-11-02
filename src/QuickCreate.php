@@ -8,6 +8,18 @@ use Filament\Facades\Filament;
 class QuickCreate {
 
     public Closure $getResourcesUsing;
+    public bool $sort = true;
+
+
+    public function sort(bool $sort):static{
+
+        $this->sort = $sort;
+        return $this;
+    }
+
+    public function sortingEnabled():bool{
+        return config('filament-quick-create.sort',$this->sort);
+    }
 
     public function getResourcesUsing(Closure $callback):static{
         $this->getResourcesUsing= $callback;
@@ -29,7 +41,7 @@ class QuickCreate {
         }
         return $value;
     }
-    
+
     public function getResources(){
         return $this->evaluate($this->getResourcesUsing);
     }

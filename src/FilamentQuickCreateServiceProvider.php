@@ -61,7 +61,7 @@ class FilamentQuickCreateServiceProvider extends PluginServiceProvider
                     ];
                 }
             })
-            ->when(config('filament-quick-create.sort')===true, fn($collection) => $collection->sortBy('label'))
+            ->when(Facade::sortingEnabled(), fn($collection) => $collection->sortBy('label'))
             ->values()
             ->toArray();
 
