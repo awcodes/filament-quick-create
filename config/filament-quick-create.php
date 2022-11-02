@@ -2,6 +2,6 @@
 
 return [
     'exclude' => [
-        // UserResource::class
+        // \App\Filament\Resources\UserResource::class
     ],
 ];

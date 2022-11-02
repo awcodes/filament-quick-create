@@ -2,9 +2,17 @@
 
 namespace FilamentQuickCreate\Facades;
 
+use Closure;
 use Illuminate\Support\Facades\Facade;
 
-
+/**
+ * @method static array getResourcesUsing(Closure $callback)
+ * @method static bool sort(bool $sort)
+ * @method static array getResources()
+ * @method static bool sortingEnabled()
+ *
+ * @see \FilamentQuickCreate\QuickCreate
+ */
 
 class QuickCreate extends Facade
 {
@@ -13,7 +21,7 @@ class QuickCreate extends Facade
      *
      * @return string
      */
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return static::class;
     }

@@ -25,14 +25,14 @@ Then just add the Resource Classes that you want to exclude.
 
 ```php
 'exclude' => [
-    UserResource::class,
+    \App\Filament\Resources\UserResource::class,
     ...
 ]
 ```
 
 ## Retrieving Resources 
 
-In a service provider, in the boot method, you can use ``` QuickCreate::getResourcesUsing```  to control the retrieved resources. Doing so still excludes resources defined in the config file.
+In a service provider, in the boot method, you can use ```QuickCreate::getResourcesUsing```  to control the retrieved resources. Doing so still excludes resources defined in the config file.
 ```php
     use FilamentQuickCreate\Facades\QuickCreate;
 
