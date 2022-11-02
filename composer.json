@@ -18,6 +18,7 @@
     "require": {
         "php": "^8.0.2",
         "filament/filament": "^2.0",
+        "laravel/pint": "^1.2",
         "spatie/laravel-package-tools": "^1.9.2"
     },
     "autoload": {
@@ -43,6 +44,9 @@
         "optimize-autoloader": true,
         "preferred-install": "dist",
         "sort-packages": true
+    },
+    "scripts": {
+        "pint": "pint"
     },
     "minimum-stability": "dev",
     "prefer-stable": true
