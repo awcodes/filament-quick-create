@@ -3,6 +3,7 @@
 namespace FilamentQuickCreate;
 
 use Filament\Facades\Filament;
+use Filament\Pages\Actions\Action;
 use Filament\Pages\Actions\CreateAction;
 use Filament\PluginServiceProvider;
 use FilamentQuickCreate\Facades\QuickCreate as Facade;
@@ -33,28 +34,13 @@ class FilamentQuickCreateServiceProvider extends PluginServiceProvider
 
     public function boot()
     {
+        Livewire::component('quick-create-menu', Http\Livewire\QuickCreateMenu::class);
+
         Filament::registerRenderHook(
             'user-menu.start',
-            fn (): View => view('filament-quick-create::components.create-menu', [
-                'resources' => $this->getFilamentResources(),
-            ]),
+            fn (): View => view('filament-quick-create::components.quick-create'),
         );
 
-        Livewire::component('quick-create-list-item', Http\Livewire\QuickCreateListItem::class);
-
         parent::boot();
-    }
-
-    public function getFilamentResources(): array
-    {
-        $resources = collect(Facade::getResources())
-            ->filter(function ($resource) {
-                return ! in_array($resource, config('filament-quick-create.exclude'));
-            })
-            ->when(Facade::sortingEnabled(), fn ($collection) => $collection->sortBy('label'))
-            ->values()
-            ->toArray();
-
-        return array_filter($resources);
     }
 }

@@ -1,0 +1,1 @@
+<livewire:quick-create-menu />
