@@ -173,7 +173,7 @@ class QuickCreateMenu extends Page
             ->map(function ($resourceName) {
                 $resource = App::make($resourceName);
                 if ($resource->canCreate()) {
-                    $actionName = 'create'.Str::of($resource->getLabel())->camel();
+                    $actionName = 'create'.Str::of($resource->getModelLabel())->camel();
 
                     return [
                         'resource_name' => $resourceName,
