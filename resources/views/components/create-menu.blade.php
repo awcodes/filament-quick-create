@@ -1,47 +1,84 @@
-@if ($items)
-<div
-    x-data
-    class="relative"
->
-    <button
-        x-on:click="$refs.quickCreatePanel.toggle"
-        style="margin-inline-start: 1rem;"
-        @class([
-            'flex flex-shrink-0 w-10 h-10 rounded-full bg-gray-200 items-center justify-center',
-            'dark:bg-gray-900' => config('filament.dark_mode'),
-        ])
-    >
-        @svg('heroicon-o-plus', 'w-4 h-4')
-    </button>
-
-    <div
-        x-ref="quickCreatePanel"
-        x-float.placement.bottom-end.flip
-        x-transition:enter="transition"
-        x-transition:enter-start="-translate-y-1 opacity-0"
-        x-transition:enter-end="translate-y-0 opacity-100"
-        x-transition:leave="transition"
-        x-transition:leave-start="translate-y-0 opacity-100"
-        x-transition:leave-end="-translate-y-1 opacity-0"
-        x-cloak
-        class="absolute hidden z-10 mt-2 overflow-y-auto shadow-xl rounded-xl top-full"
-        style="max-height: 15rem; min-width: 208px;"
-    >
-        <ul @class([
-            'py-1 space-y-1 overflow-hidden bg-white shadow rounded-xl',
-            'dark:border-gray-600 dark:bg-gray-700' => config('filament.dark_mode'),
-        ])>
-            @foreach ($items as $resource)
+<div>
+@if ($resources)
+    <x-filament::dropdown placement="bottom-end">
+        <x-slot name="trigger" class="ml-4">
+            <button  @class([
+                'flex flex-shrink-0 w-10 h-10 rounded-full bg-gray-200 items-center justify-center',
+                'dark:bg-gray-900' => config('filament.dark_mode'),
+            ]) aria-label="{{ __('filament::layout.buttons.user_menu.label') }}">
+                @svg('heroicon-o-plus', 'w-4 h-4')
+            </button>
+        </x-slot>
+        <x-filament::dropdown.list>
+            @foreach($resources as $resource)
                 <x-filament::dropdown.item
                     :color="'secondary'"
-                    :href="$resource['url']"
                     :icon="$resource['icon']"
-                    tag="a"
+                    :wire:click="$resource['action']"
+                    :href="$resource['url']"
+                    :tag="$resource['url'] ? 'a' : 'button'"
                 >
                     {{ $resource['label'] }}
                 </x-filament::dropdown.item>
             @endforeach
-        </ul>
-    </div>
-</div>
+        </x-filament::dropdown.list>
+    </x-filament::dropdown>
+
+    <form wire:submit.prevent="callMountedAction">
+        @php
+            $action = $this->getMountedAction();
+        @endphp
+
+        <x-filament::modal
+                id="quick-create-action"
+                :wire:key="$action ? $this->id . '.actions.' . $action->getName() . '.modal' : null"
+                :visible="filled($action)"
+                :width="$action?->getModalWidth()"
+                :slide-over="$action?->isModalSlideOver()"
+                display-classes="block"
+        >
+            @if ($action)
+                @if ($action->isModalCentered())
+                    <x-slot name="heading">
+                        {{ $action->getModalHeading() }}
+                    </x-slot>
+
+                    @if ($subheading = $action->getModalSubheading())
+                        <x-slot name="subheading">
+                            {{ $subheading }}
+                        </x-slot>
+                    @endif
+                @else
+                    <x-slot name="header">
+                        <x-filament::modal.heading>
+                            {{ $action->getModalHeading() }}
+                        </x-filament::modal.heading>
+
+                        @if ($subheading = $action->getModalSubheading())
+                            <x-filament::modal.subheading>
+                                {{ $subheading }}
+                            </x-filament::modal.subheading>
+                        @endif
+                    </x-slot>
+                @endif
+
+                {{ $action->getModalContent() }}
+
+                @if ($action->hasFormSchema())
+                    {{ $this->getMountedActionForm() }}
+                @endif
+
+                @if (count($action->getModalActions()))
+                    <x-slot name="footer">
+                        <x-filament::modal.actions :full-width="$action->isModalCentered()">
+                            @foreach ($action->getModalActions() as $modalAction)
+                                {{ $modalAction }}
+                            @endforeach
+                        </x-filament::modal.actions>
+                    </x-slot>
+                @endif
+            @endif
+        </x-filament::modal>
+    </form>
 @endif
+</div>

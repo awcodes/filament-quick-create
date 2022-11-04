@@ -4,11 +4,9 @@ namespace FilamentQuickCreate;
 
 use Filament\Facades\Filament;
 use Filament\PluginServiceProvider;
-use FilamentQuickCreate\Facades\QuickCreate as Facade;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Str;
-use Illuminate\View\View;
+use FilamentQuickCreate\Facades\QuickCreate as QuickCreateFacade;
+use Illuminate\Support\Facades\Blade;
+use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;
 
 class FilamentQuickCreateServiceProvider extends PluginServiceProvider
@@ -23,7 +21,7 @@ class FilamentQuickCreateServiceProvider extends PluginServiceProvider
 
     public function packageRegistered(): void
     {
-        $this->app->scoped(Facade::class, function () {
+        $this->app->scoped(QuickCreateFacade::class, function () {
             return new QuickCreate();
         });
 
@@ -32,39 +30,13 @@ class FilamentQuickCreateServiceProvider extends PluginServiceProvider
 
     public function boot()
     {
+        Livewire::component('quick-create-menu', Http\Livewire\QuickCreateMenu::class);
+
         Filament::registerRenderHook(
-            'global-search.end',
-            fn (): View => view('filament-quick-create::components.create-menu', [
-                'items' => $this->getFilamentResources(),
-            ]),
+            'user-menu.start',
+            fn (): string => Blade::render('@livewire(\'quick-create-menu\')'),
         );
 
         parent::boot();
-    }
-
-    public function getFilamentResources(): array
-    {
-        $resources = collect(Facade::getResources())
-            ->filter(function ($resource) {
-                return ! in_array($resource, config('filament-quick-create.exclude'));
-            })
-            ->map(function ($resource) {
-                $resource = App::make($resource);
-                $route = $resource->getRouteBaseName().'.create';
-                if ($resource->canCreate() && Route::has($route)) {
-                    return [
-                        'label' => Str::ucfirst($resource->getModelLabel()),
-                        'icon' => invade($resource)->getNavigationIcon(),
-                        'url' => route($route),
-                    ];
-                }
-
-                return null;
-            })
-            ->when(Facade::sortingEnabled(), fn ($collection) => $collection->sortBy('label'))
-            ->values()
-            ->toArray();
-
-        return array_filter($resources);
     }
 }
