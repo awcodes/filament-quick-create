@@ -2,6 +2,7 @@
 
 namespace FilamentQuickCreate\Http\Livewire;
 
+use Filament\Forms\ComponentContainer;
 use Filament\Pages\Actions\CreateAction;
 use Filament\Pages\Page;
 use Filament\Support\Exceptions\Cancel;
@@ -142,6 +143,25 @@ class QuickCreateMenu extends Page
         $this->dispatchBrowserEvent('open-modal', [
             'id' => 'quick-create-action',
         ]);
+    }
+
+    public function getMountedActionForm(): ?ComponentContainer
+    {
+        $action = $this->getMountedAction();
+
+        if (! $action) {
+            return null;
+        }
+
+        if ((! $this->isCachingForms) && $this->hasCachedForm('mountedActionForm')) {
+            return $this->getCachedForm('mountedActionForm');
+        }
+
+        return $this->makeForm()
+            ->schema($action->getFormSchema())
+            ->statePath('mountedActionData')
+            ->model($action->getModel())
+            ->context($this->mountedAction);
     }
 
     public function getFilamentResources(): array
