@@ -3,18 +3,16 @@
 namespace FilamentQuickCreate\Http\Livewire;
 
 use Filament\Pages\Actions\CreateAction;
-use Filament\Pages\Concerns\HasActions;
 use Filament\Pages\Page;
+use Filament\Support\Exceptions\Cancel;
+use Filament\Support\Exceptions\Halt;
 use FilamentQuickCreate\Facades\QuickCreate as QuickCreateFacade;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
-use Livewire\Component;
 
 class QuickCreateMenu extends Page
 {
-    use HasActions;
-
     public $resources;
 
     public function mount(): void
@@ -25,12 +23,11 @@ class QuickCreateMenu extends Page
     protected function getActions(): array
     {
         if ($this->resources) {
-
             return collect($this->resources)
-                ->filter(function($item) {
+                ->filter(function ($item) {
                     return $item['url'] === null;
                 })
-                ->transform(function($item) {
+                ->transform(function ($item) {
                     $resource = App::make($item['resource_name']);
                     $listResource = invade(App::make($resource->getPages()['index']['class']));
                     $form = $listResource->getCreateFormSchema();
@@ -46,9 +43,105 @@ class QuickCreateMenu extends Page
         return [];
     }
 
-    public function render(): View
+    public function callMountedAction(?string $arguments = null)
     {
-        return view('filament-quick-create::components.create-menu');
+        $action = $this->getMountedAction();
+
+        if (! $action) {
+            return;
+        }
+
+        if ($action->isDisabled()) {
+            return;
+        }
+
+        $action->arguments($arguments ? json_decode($arguments, associative: true) : []);
+
+        $form = $this->getMountedActionForm();
+
+        $result = null;
+
+        try {
+            if ($action->hasForm()) {
+                $action->callBeforeFormValidated();
+
+                $action->formData($form->getState());
+
+                $action->callAfterFormValidated();
+            }
+
+            $action->callBefore();
+
+            $result = $action->call([
+                'form' => $form,
+            ]);
+
+            $result = $action->callAfter() ?? $result;
+        } catch (Halt $exception) {
+            return;
+        } catch (Cancel $exception) {
+        }
+
+        $this->mountedAction = null;
+
+        $action->resetArguments();
+        $action->resetFormData();
+
+        $this->dispatchBrowserEvent('close-modal', [
+            'id' => 'quick-create-action',
+        ]);
+
+        return $result;
+    }
+
+    public function mountAction(string $name)
+    {
+        $this->mountedAction = $name;
+
+        $action = $this->getMountedAction();
+
+        if (! $action) {
+            return;
+        }
+
+        if ($action->isDisabled()) {
+            return;
+        }
+
+        $this->cacheForm(
+            'mountedActionForm',
+            fn () => $this->getMountedActionForm(),
+        );
+
+        try {
+            if ($action->hasForm()) {
+                $action->callBeforeFormFilled();
+            }
+
+            $action->mount([
+                'form' => $this->getMountedActionForm(),
+            ]);
+
+            if ($action->hasForm()) {
+                $action->callAfterFormFilled();
+            }
+        } catch (Halt $exception) {
+            return;
+        } catch (Cancel $exception) {
+            $this->mountedAction = null;
+
+            return;
+        }
+
+        if (! $action->shouldOpenModal()) {
+            return $this->callMountedAction();
+        }
+
+        $this->resetErrorBag();
+
+        $this->dispatchBrowserEvent('open-modal', [
+            'id' => 'quick-create-action',
+        ]);
     }
 
     public function getFilamentResources(): array
@@ -60,13 +153,14 @@ class QuickCreateMenu extends Page
             ->map(function ($resourceName) {
                 $resource = App::make($resourceName);
                 if ($resource->canCreate()) {
-                    $actionName = 'create' . Str::of($resource->getLabel())->camel();
+                    $actionName = 'create'.Str::of($resource->getLabel())->camel();
+
                     return [
                         'resource_name' => $resourceName,
                         'label' => Str::ucfirst($resource->getModelLabel()),
                         'icon' => invade($resource)->getNavigationIcon(),
                         'action_name' => $actionName,
-                        'action' => ! $resource->hasPage('create') ? 'mountAction(\'' . $actionName . '\')' : null,
+                        'action' => ! $resource->hasPage('create') ? 'mountAction(\''.$actionName.'\')' : null,
                         'url' => $resource->hasPage('create') ? $resource::getUrl('create') : null,
                     ];
                 }
@@ -78,5 +172,10 @@ class QuickCreateMenu extends Page
             ->toArray();
 
         return array_filter($resources);
+    }
+
+    public function render(): View
+    {
+        return view('filament-quick-create::components.create-menu');
     }
 }

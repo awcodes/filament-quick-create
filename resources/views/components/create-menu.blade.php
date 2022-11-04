@@ -9,10 +9,7 @@
                 @svg('heroicon-o-plus', 'w-4 h-4')
             </button>
         </x-slot>
-        <ul @class([
-            'py-1 space-y-1 overflow-hidden bg-white shadow rounded-xl',
-            'dark:border-gray-600 dark:bg-gray-700' => config('filament.dark_mode'),
-        ])>
+        <x-filament::dropdown.list>
             @foreach($resources as $resource)
                 <x-filament::dropdown.item
                     :color="'secondary'"
@@ -24,64 +21,64 @@
                     {{ $resource['label'] }}
                 </x-filament::dropdown.item>
             @endforeach
-        </ul>
+        </x-filament::dropdown.list>
     </x-filament::dropdown>
 
-        <form wire:submit.prevent="callMountedAction">
-            @php
-                $action = $this->getMountedAction();
-            @endphp
+    <form wire:submit.prevent="callMountedAction">
+        @php
+            $action = $this->getMountedAction();
+        @endphp
 
-            <x-filament::modal
-                    id="page-action"
-                    :wire:key="$action ? $this->id . '.actions.' . $action->getName() . '.modal' : null"
-                    :visible="filled($action)"
-                    :width="$action?->getModalWidth()"
-                    :slide-over="$action?->isModalSlideOver()"
-                    display-classes="block"
-            >
-                @if ($action)
-                    @if ($action->isModalCentered())
-                        <x-slot name="heading">
-                            {{ $action->getModalHeading() }}
+        <x-filament::modal
+                id="quick-create-action"
+                :wire:key="$action ? $this->id . '.actions.' . $action->getName() . '.modal' : null"
+                :visible="filled($action)"
+                :width="$action?->getModalWidth()"
+                :slide-over="$action?->isModalSlideOver()"
+                display-classes="block"
+        >
+            @if ($action)
+                @if ($action->isModalCentered())
+                    <x-slot name="heading">
+                        {{ $action->getModalHeading() }}
+                    </x-slot>
+
+                    @if ($subheading = $action->getModalSubheading())
+                        <x-slot name="subheading">
+                            {{ $subheading }}
                         </x-slot>
+                    @endif
+                @else
+                    <x-slot name="header">
+                        <x-filament::modal.heading>
+                            {{ $action->getModalHeading() }}
+                        </x-filament::modal.heading>
 
                         @if ($subheading = $action->getModalSubheading())
-                            <x-slot name="subheading">
+                            <x-filament::modal.subheading>
                                 {{ $subheading }}
-                            </x-slot>
+                            </x-filament::modal.subheading>
                         @endif
-                    @else
-                        <x-slot name="header">
-                            <x-filament::modal.heading>
-                                {{ $action->getModalHeading() }}
-                            </x-filament::modal.heading>
-
-                            @if ($subheading = $action->getModalSubheading())
-                                <x-filament::modal.subheading>
-                                    {{ $subheading }}
-                                </x-filament::modal.subheading>
-                            @endif
-                        </x-slot>
-                    @endif
-
-                    {{ $action->getModalContent() }}
-
-                    @if ($action->hasFormSchema())
-                        {{ $this->getMountedActionForm() }}
-                    @endif
-
-                    @if (count($action->getModalActions()))
-                        <x-slot name="footer">
-                            <x-filament::modal.actions :full-width="$action->isModalCentered()">
-                                @foreach ($action->getModalActions() as $modalAction)
-                                    {{ $modalAction }}
-                                @endforeach
-                            </x-filament::modal.actions>
-                        </x-slot>
-                    @endif
+                    </x-slot>
                 @endif
-            </x-filament::modal>
-        </form>
+
+                {{ $action->getModalContent() }}
+
+                @if ($action->hasFormSchema())
+                    {{ $this->getMountedActionForm() }}
+                @endif
+
+                @if (count($action->getModalActions()))
+                    <x-slot name="footer">
+                        <x-filament::modal.actions :full-width="$action->isModalCentered()">
+                            @foreach ($action->getModalActions() as $modalAction)
+                                {{ $modalAction }}
+                            @endforeach
+                        </x-filament::modal.actions>
+                    </x-slot>
+                @endif
+            @endif
+        </x-filament::modal>
+    </form>
 @endif
 </div>
