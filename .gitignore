@@ -2,4 +2,5 @@
 /vendor
 /.npmrc
 /.idea
+/images
 composer.lock

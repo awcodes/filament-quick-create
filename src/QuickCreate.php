@@ -4,28 +4,46 @@ namespace FilamentQuickCreate;
 
 use Closure;
 use Filament\Facades\Filament;
+use Filament\Support\Concerns\EvaluatesClosures;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Str;
 
 class QuickCreate
 {
-    public Closure $getResourcesUsing;
+    use EvaluatesClosures;
 
-    public bool $sort = true;
+    protected Closure $getResourcesUsing;
+
+    protected array $excludes = [];
+
+    protected array $includes = [];
+
+    protected bool $sort = true;
 
     public function __construct()
     {
         $this->getResourcesUsing(fn () => Filament::getResources());
     }
 
-    public function sort(bool $sort): static
+    public function excludes(array $resources): static
     {
-        $this->sort = $sort;
+        $this->excludes = $resources;
 
         return $this;
     }
 
-    public function sortingEnabled(): bool
+    public function includes(array $resources): static
     {
-        return config('filament-quick-create.sort', $this->sort);
+        $this->includes = $resources;
+
+        return $this;
+    }
+
+    public function sort(bool|Closure $condition = true): static
+    {
+        $this->sort = $condition;
+
+        return $this;
     }
 
     public function getResourcesUsing(Closure $callback): static
@@ -35,20 +53,52 @@ class QuickCreate
         return $this;
     }
 
-    public function evaluate($value, array $parameters = [])
+    public function getExcludes(): array
     {
-        if ($value instanceof Closure) {
-            return app()->call(
-                $value,
-                $parameters
-            );
-        }
+        return $this->evaluate($this->excludes);
+    }
 
-        return $value;
+    public function getIncludes(): array
+    {
+        return $this->evaluate($this->includes);
+    }
+
+    public function isSortable(): bool
+    {
+        return $this->evaluate($this->sort);
     }
 
     public function getResources(): array
     {
-        return $this->evaluate($this->getResourcesUsing);
+        $resources = filled($this->getIncludes())
+            ? $this->getIncludes()
+            : $this->evaluate($this->getResourcesUsing);
+
+        $list = collect($resources)
+            ->filter(function($item) {
+                return ! in_array($item, $this->getExcludes());
+            })
+            ->map(function($resourceName): ?array {
+                $resource = App::make($resourceName);
+                if ($resource->canCreate()) {
+                    $actionName = 'create.'.Str::of($resource->getModelLabel())->camel();
+
+                    return [
+                        'resource_name' => $resourceName,
+                        'label' => Str::ucfirst($resource->getModelLabel()),
+                        'icon' => invade($resource)->getNavigationIcon(),
+                        'action_name' => $actionName,
+                        'action' => ! $resource->hasPage('create') ? 'mountAction(\''.$actionName.'\')' : null,
+                        'url' => $resource->hasPage('create') ? $resource::getUrl('create') : null,
+                    ];
+                }
+
+                return null;
+            })
+            ->when($this->isSortable(), fn ($collection) => $collection->sortBy('label'))
+            ->values()
+            ->toArray();
+
+        return array_filter($list);
     }
 }

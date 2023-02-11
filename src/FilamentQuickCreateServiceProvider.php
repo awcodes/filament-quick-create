@@ -15,28 +15,27 @@ class FilamentQuickCreateServiceProvider extends PluginServiceProvider
     {
         $package
             ->name('filament-quick-create')
-            ->hasConfigFile()
             ->hasViews();
     }
 
     public function packageRegistered(): void
     {
+        parent::packageRegistered();
+
         $this->app->scoped(QuickCreateFacade::class, function () {
             return new QuickCreate();
         });
-
-        parent::packageRegistered();
     }
 
     public function boot()
     {
+        parent::boot();
+
         Livewire::component('quick-create-menu', Http\Livewire\QuickCreateMenu::class);
 
         Filament::registerRenderHook(
             'user-menu.start',
             fn (): string => Blade::render('@livewire(\'quick-create-menu\')'),
         );
-
-        parent::boot();
     }
 }

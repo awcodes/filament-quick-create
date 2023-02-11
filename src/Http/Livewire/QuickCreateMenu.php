@@ -3,13 +3,13 @@
 namespace FilamentQuickCreate\Http\Livewire;
 
 use Filament\Forms\ComponentContainer;
+use Filament\Pages\Actions\Action;
 use Filament\Pages\Actions\CreateAction;
 use Filament\Pages\Page;
 use Filament\Support\Exceptions\Cancel;
 use Filament\Support\Exceptions\Halt;
-use FilamentQuickCreate\Facades\QuickCreate as QuickCreateFacade;
+use FilamentQuickCreate\Facades\QuickCreate;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class QuickCreateMenu extends Page
@@ -18,7 +18,7 @@ class QuickCreateMenu extends Page
 
     public function mount(): void
     {
-        $this->resources = $this->getFilamentResources();
+        $this->resources = QuickCreate::getResources();
     }
 
     protected function getActions(): array
@@ -44,16 +44,12 @@ class QuickCreateMenu extends Page
         return [];
     }
 
-    public function callMountedAction(?string $arguments = null)
+    public function callMountedAction(?string $arguments = null): ?Action
     {
         $action = $this->getMountedAction();
 
-        if (! $action) {
-            return;
-        }
-
-        if ($action->isDisabled()) {
-            return;
+        if (! $action || $action->isDisabled()) {
+            return null;
         }
 
         $action->arguments($arguments ? json_decode($arguments, associative: true) : []);
@@ -79,7 +75,7 @@ class QuickCreateMenu extends Page
 
             $result = $action->callAfter() ?? $result;
         } catch (Halt $exception) {
-            return;
+            return null;
         } catch (Cancel $exception) {
         }
 
@@ -95,18 +91,18 @@ class QuickCreateMenu extends Page
         return $result;
     }
 
-    public function mountAction(string $name)
+    public function mountAction(string $name): ?Action
     {
         $this->mountedAction = $name;
 
         $action = $this->getMountedAction();
 
         if (! $action) {
-            return;
+            return null;
         }
 
         if ($action->isDisabled()) {
-            return;
+            return null;
         }
 
         $this->cacheForm(
@@ -127,11 +123,11 @@ class QuickCreateMenu extends Page
                 $action->callAfterFormFilled();
             }
         } catch (Halt $exception) {
-            return;
+            return null;
         } catch (Cancel $exception) {
             $this->mountedAction = null;
 
-            return;
+            return null;
         }
 
         if (! $action->shouldOpenModal()) {
@@ -143,6 +139,8 @@ class QuickCreateMenu extends Page
         $this->dispatchBrowserEvent('open-modal', [
             'id' => 'quick-create-action',
         ]);
+
+        return null;
     }
 
     public function getMountedActionForm(): ?ComponentContainer
@@ -164,35 +162,6 @@ class QuickCreateMenu extends Page
             ->context($this->mountedAction);
     }
 
-    public function getFilamentResources(): array
-    {
-        $resources = collect(QuickCreateFacade::getResources())
-            ->filter(function ($resource) {
-                return ! in_array($resource, config('filament-quick-create.exclude'));
-            })
-            ->map(function ($resourceName) {
-                $resource = App::make($resourceName);
-                if ($resource->canCreate()) {
-                    $actionName = 'create'.Str::of($resource->getModelLabel())->camel();
-
-                    return [
-                        'resource_name' => $resourceName,
-                        'label' => Str::ucfirst($resource->getModelLabel()),
-                        'icon' => invade($resource)->getNavigationIcon(),
-                        'action_name' => $actionName,
-                        'action' => ! $resource->hasPage('create') ? 'mountAction(\''.$actionName.'\')' : null,
-                        'url' => $resource->hasPage('create') ? $resource::getUrl('create') : null,
-                    ];
-                }
-
-                return null;
-            })
-            ->when(QuickCreateFacade::sortingEnabled(), fn ($collection) => $collection->sortBy('label'))
-            ->values()
-            ->toArray();
-
-        return array_filter($resources);
-    }
 
     public function render(): View
     {

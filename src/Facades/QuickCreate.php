@@ -6,10 +6,14 @@ use Closure;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static array getResourcesUsing(Closure $callback)
- * @method static bool sort(bool $sort)
+ * @method static excludes(array $resources)
+ * @method static includes(array $resources)
+ * @method static sort(bool $sort)
+ * @method static getResourcesUsing(Closure $callback)
+ * @method static array getExcludes()
+ * @method static array getIncludes()
+ * @method static bool isSortable()
  * @method static array getResources()
- * @method static bool sortingEnabled()
  *
  * @see \FilamentQuickCreate\QuickCreate
  */
