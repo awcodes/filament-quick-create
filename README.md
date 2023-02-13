@@ -2,6 +2,8 @@
 
 Plugin for [Filament Admin Panel](https://filamentphp.com) that adds a dropdown menu to the header to quickly create new items from anywhere in your app.
 
+![screen-shot](https://user-images.githubusercontent.com/3596800/218512680-6515eddb-cddf-49b3-a4f1-af549b7f6cb6.jpg)
+
 ## Installation
 
 Install the package via composer
