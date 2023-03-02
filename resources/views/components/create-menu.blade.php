@@ -1,7 +1,7 @@
 <div>
 @if ($resources)
     <x-filament::dropdown placement="bottom-end">
-        <x-slot name="trigger" class="ml-4">
+        <x-slot name="trigger" class="ml-4 rtl:mr-4 rtl:ml-0">
             <button  @class([
                 'flex flex-shrink-0 w-10 h-10 rounded-full bg-gray-200 items-center justify-center',
                 'dark:bg-gray-900' => config('filament.dark_mode'),
