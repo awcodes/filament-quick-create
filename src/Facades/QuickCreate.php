@@ -6,10 +6,10 @@ use Closure;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static excludes(array $resources)
- * @method static includes(array $resources)
- * @method static sort(bool $sort)
- * @method static getResourcesUsing(Closure $callback)
+ * @method static static excludes(array $resources)
+ * @method static static includes(array $resources)
+ * @method static static sort(bool $sort)
+ * @method static static getResourcesUsing(Closure $callback)
  * @method static array getExcludes()
  * @method static array getIncludes()
  * @method static bool isSortable()

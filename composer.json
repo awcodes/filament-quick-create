@@ -17,7 +17,7 @@
     ],
     "require": {
         "php": "^8.0",
-        "filament/filament": "^2.0",
+        "filament/filament": "*",
         "spatie/laravel-package-tools": "^1.9.2",
         "illuminate/contracts": "^9.0|^10.0"
     },
@@ -56,8 +56,11 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "phpstan/extension-installer": true
+        }
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true
 }

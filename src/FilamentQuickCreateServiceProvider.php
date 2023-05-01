@@ -2,19 +2,18 @@
 
 namespace FilamentQuickCreate;
 
-use Filament\Facades\Filament;
-use Filament\PluginServiceProvider;
 use FilamentQuickCreate\Facades\QuickCreate as QuickCreateFacade;
-use Illuminate\Support\Facades\Blade;
-use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class FilamentQuickCreateServiceProvider extends PluginServiceProvider
+class FilamentQuickCreateServiceProvider extends PackageServiceProvider
 {
+    protected static string $name = 'filament-quick-create';
+
     public function configurePackage(Package $package): void
     {
         $package
-            ->name('filament-quick-create')
+            ->name(static::$name)
             ->hasViews();
     }
 
@@ -25,17 +24,5 @@ class FilamentQuickCreateServiceProvider extends PluginServiceProvider
         $this->app->scoped(QuickCreateFacade::class, function () {
             return new QuickCreate();
         });
-    }
-
-    public function boot()
-    {
-        parent::boot();
-
-        Livewire::component('quick-create-menu', Http\Livewire\QuickCreateMenu::class);
-
-        Filament::registerRenderHook(
-            'user-menu.start',
-            fn (): string => Blade::render('@livewire(\'quick-create-menu\')'),
-        );
     }
 }

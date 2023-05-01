@@ -79,14 +79,16 @@ class QuickCreate
                 return ! in_array($item, $this->getExcludes());
             })
             ->map(function($resourceName): ?array {
-                $resource = App::make($resourceName);
+                $resource = app($resourceName);
+
                 if ($resource->canCreate()) {
-                    $actionName = 'create.'.Str::of($resource->getModelLabel())->camel();
+                    $actionName = 'create_'.Str::of($resource->getModelLabel())->camel();
 
                     return [
                         'resource_name' => $resourceName,
                         'label' => Str::ucfirst($resource->getModelLabel()),
-                        'icon' => invade($resource)->getNavigationIcon(),
+                        'model' => $resource->getModel(),
+                        'icon' => $resource->getNavigationIcon(),
                         'action_name' => $actionName,
                         'action' => ! $resource->hasPage('create') ? 'mountAction(\''.$actionName.'\')' : null,
                         'url' => $resource->hasPage('create') ? $resource::getUrl('create') : null,
