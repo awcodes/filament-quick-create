@@ -4,6 +4,7 @@ namespace FilamentQuickCreate;
 
 use Filament\Context;
 use Filament\Contracts\Plugin;
+use Filament\Resources\Resource;
 use Illuminate\Support\Facades\Blade;
 use Livewire\Livewire;
 

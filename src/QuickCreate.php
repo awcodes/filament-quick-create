@@ -82,7 +82,7 @@ class QuickCreate
                 $resource = app($resourceName);
 
                 if ($resource->canCreate()) {
-                    $actionName = 'create_'.Str::of($resource->getModelLabel())->camel();
+                    $actionName = 'create_'.Str::of($resource->getModel())->replace('\\', '')->snake();
 
                     return [
                         'resource_name' => $resourceName,
