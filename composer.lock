@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c551b80df32fc68aa0d74738f3e4393b",
+    "content-hash": "3df00d8862614bb141661bb0396c2992",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -688,16 +688,16 @@
         },
         {
             "name": "filament/actions",
-            "version": "v3.0.0-alpha78",
+            "version": "v3.0.0-alpha84",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/actions.git",
-                "reference": "ac7afe69cbb477216756842842e81caf1c91b568"
+                "reference": "2a087529ce3466fdeeb0b04b81054eb68120f851"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/actions/zipball/ac7afe69cbb477216756842842e81caf1c91b568",
-                "reference": "ac7afe69cbb477216756842842e81caf1c91b568",
+                "url": "https://api.github.com/repos/filamentphp/actions/zipball/2a087529ce3466fdeeb0b04b81054eb68120f851",
+                "reference": "2a087529ce3466fdeeb0b04b81054eb68120f851",
                 "shasum": ""
             },
             "require": {
@@ -735,20 +735,20 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2023-04-24T08:34:52+00:00"
+            "time": "2023-05-05T14:18:51+00:00"
         },
         {
             "name": "filament/filament",
-            "version": "v3.0.0-alpha78",
+            "version": "v3.0.0-alpha84",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/app.git",
-                "reference": "ce3a4571a4f4bec3e62df8fa2e746bd12d1de142"
+                "reference": "e5200f39159133904a35c52d9ee167beb147efeb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/app/zipball/ce3a4571a4f4bec3e62df8fa2e746bd12d1de142",
-                "reference": "ce3a4571a4f4bec3e62df8fa2e746bd12d1de142",
+                "url": "https://api.github.com/repos/filamentphp/app/zipball/e5200f39159133904a35c52d9ee167beb147efeb",
+                "reference": "e5200f39159133904a35c52d9ee167beb147efeb",
                 "shasum": ""
             },
             "require": {
@@ -801,20 +801,20 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2023-04-30T18:15:33+00:00"
+            "time": "2023-05-04T23:10:44+00:00"
         },
         {
             "name": "filament/forms",
-            "version": "v3.0.0-alpha78",
+            "version": "v3.0.0-alpha84",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/forms.git",
-                "reference": "01289898b2b9adb2bbe324e0811d27f407938fde"
+                "reference": "35e5154023c0ce82fb70280483daec5e8bb99121"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/forms/zipball/01289898b2b9adb2bbe324e0811d27f407938fde",
-                "reference": "01289898b2b9adb2bbe324e0811d27f407938fde",
+                "url": "https://api.github.com/repos/filamentphp/forms/zipball/35e5154023c0ce82fb70280483daec5e8bb99121",
+                "reference": "35e5154023c0ce82fb70280483daec5e8bb99121",
                 "shasum": ""
             },
             "require": {
@@ -859,11 +859,11 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2023-04-30T18:15:17+00:00"
+            "time": "2023-05-04T23:10:53+00:00"
         },
         {
             "name": "filament/infolists",
-            "version": "v3.0.0-alpha78",
+            "version": "v3.0.0-alpha84",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/infolists.git",
@@ -914,16 +914,16 @@
         },
         {
             "name": "filament/notifications",
-            "version": "v3.0.0-alpha78",
+            "version": "v3.0.0-alpha84",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/notifications.git",
-                "reference": "e87043fea9c80c20a914c25985db1ecf3fb9f464"
+                "reference": "bc75d6b904cd1e1e1312139dd2282d94ffa77d2b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/notifications/zipball/e87043fea9c80c20a914c25985db1ecf3fb9f464",
-                "reference": "e87043fea9c80c20a914c25985db1ecf3fb9f464",
+                "url": "https://api.github.com/repos/filamentphp/notifications/zipball/bc75d6b904cd1e1e1312139dd2282d94ffa77d2b",
+                "reference": "bc75d6b904cd1e1e1312139dd2282d94ffa77d2b",
                 "shasum": ""
             },
             "require": {
@@ -964,20 +964,20 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2023-04-30T18:15:18+00:00"
+            "time": "2023-05-04T23:10:53+00:00"
         },
         {
             "name": "filament/support",
-            "version": "v3.0.0-alpha78",
+            "version": "v3.0.0-alpha84",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/support.git",
-                "reference": "7e7dbe7d69f996503ee6173fd7b9120b8219dce5"
+                "reference": "c554eae4688cdacf3e501fd258c8238a9584145e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/support/zipball/7e7dbe7d69f996503ee6173fd7b9120b8219dce5",
-                "reference": "7e7dbe7d69f996503ee6173fd7b9120b8219dce5",
+                "url": "https://api.github.com/repos/filamentphp/support/zipball/c554eae4688cdacf3e501fd258c8238a9584145e",
+                "reference": "c554eae4688cdacf3e501fd258c8238a9584145e",
                 "shasum": ""
             },
             "require": {
@@ -1018,20 +1018,20 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2023-04-30T18:15:43+00:00"
+            "time": "2023-05-05T14:19:21+00:00"
         },
         {
             "name": "filament/tables",
-            "version": "v3.0.0-alpha78",
+            "version": "v3.0.0-alpha84",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/tables.git",
-                "reference": "194694674500234f0b22ab0a80e53ae8f2e8cbe5"
+                "reference": "b4e0dafdd1f852902cf5a16da403b17aac61aa88"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/tables/zipball/194694674500234f0b22ab0a80e53ae8f2e8cbe5",
-                "reference": "194694674500234f0b22ab0a80e53ae8f2e8cbe5",
+                "url": "https://api.github.com/repos/filamentphp/tables/zipball/b4e0dafdd1f852902cf5a16da403b17aac61aa88",
+                "reference": "b4e0dafdd1f852902cf5a16da403b17aac61aa88",
                 "shasum": ""
             },
             "require": {
@@ -1074,11 +1074,11 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2023-04-30T18:15:42+00:00"
+            "time": "2023-05-05T14:19:22+00:00"
         },
         {
             "name": "filament/widgets",
-            "version": "v3.0.0-alpha78",
+            "version": "v3.0.0-alpha84",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/widgets.git",
@@ -1851,19 +1851,20 @@
         },
         {
             "name": "league/flysystem",
-            "version": "3.14.0",
+            "version": "3.15.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "e2a279d7f47d9098e479e8b21f7fb8b8de230158"
+                "reference": "a141d430414fcb8bf797a18716b09f759a385bed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/e2a279d7f47d9098e479e8b21f7fb8b8de230158",
-                "reference": "e2a279d7f47d9098e479e8b21f7fb8b8de230158",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/a141d430414fcb8bf797a18716b09f759a385bed",
+                "reference": "a141d430414fcb8bf797a18716b09f759a385bed",
                 "shasum": ""
             },
             "require": {
+                "league/flysystem-local": "^3.0.0",
                 "league/mime-type-detection": "^1.0.0",
                 "php": "^8.0.2"
             },
@@ -1922,7 +1923,7 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/flysystem/issues",
-                "source": "https://github.com/thephpleague/flysystem/tree/3.14.0"
+                "source": "https://github.com/thephpleague/flysystem/tree/3.15.1"
             },
             "funding": [
                 {
@@ -1934,7 +1935,67 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-04-11T18:11:47+00:00"
+            "time": "2023-05-04T09:04:26+00:00"
+        },
+        {
+            "name": "league/flysystem-local",
+            "version": "3.15.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/flysystem-local.git",
+                "reference": "543f64c397fefdf9cfeac443ffb6beff602796b3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/flysystem-local/zipball/543f64c397fefdf9cfeac443ffb6beff602796b3",
+                "reference": "543f64c397fefdf9cfeac443ffb6beff602796b3",
+                "shasum": ""
+            },
+            "require": {
+                "ext-fileinfo": "*",
+                "league/flysystem": "^3.0.0",
+                "league/mime-type-detection": "^1.0.0",
+                "php": "^8.0.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "League\\Flysystem\\Local\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Frank de Jonge",
+                    "email": "info@frankdejonge.nl"
+                }
+            ],
+            "description": "Local filesystem adapter for Flysystem.",
+            "keywords": [
+                "Flysystem",
+                "file",
+                "files",
+                "filesystem",
+                "local"
+            ],
+            "support": {
+                "issues": "https://github.com/thephpleague/flysystem-local/issues",
+                "source": "https://github.com/thephpleague/flysystem-local/tree/3.15.0"
+            },
+            "funding": [
+                {
+                    "url": "https://ecologi.com/frankdejonge",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/frankdejonge",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-05-02T20:02:14+00:00"
         },
         {
             "name": "league/mime-type-detection",

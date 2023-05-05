@@ -2,7 +2,7 @@
 
 namespace FilamentQuickCreate\Tests;
 
-use FilamentQuickCreate\FilamentQuickCreateServiceProvider;
+use FilamentQuickCreate\QuickCreateServiceProvider;
 use Filament\FilamentServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Livewire\LivewireServiceProvider;
@@ -24,7 +24,7 @@ class TestCase extends Orchestra
         return [
             LivewireServiceProvider::class,
             FilamentServiceProvider::class,
-            FilamentQuickCreateServiceProvider::class,
+            QuickCreateServiceProvider::class,
         ];
     }
 
