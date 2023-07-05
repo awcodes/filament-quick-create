@@ -1,6 +1,6 @@
 <?php
 
-namespace FilamentQuickCreate;
+namespace Awcodes\FilamentQuickCreate;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -11,6 +11,7 @@ class QuickCreateServiceProvider extends PackageServiceProvider
     {
         $package
             ->name('filament-quick-create')
+            ->hasTranslations()
             ->hasViews();
     }
 }

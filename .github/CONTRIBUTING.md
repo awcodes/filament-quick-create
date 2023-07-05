@@ -14,13 +14,12 @@ Please be considerate towards maintainers when raising issues or presenting pull
 world that developers are civilized and selfless people.
 
 It's the duty of the maintainer to ensure that all submissions to the project are of sufficient
-quality to benefit the project. Many developers have different skillsets, strengths, and weaknesses. Respect the maintainer's decision, and do not be upset or abusive if your submission is not used.
+quality to benefit the project. Many developers have different skills, strengths, and weaknesses. Respect the maintainer's decision, and do not be upset or abusive if your submission is not used.
 
 ## Viability
 
 When requesting or submitting new features, first consider whether it might be useful to others. Open
-source projects are used by many developers, who may have entirely different needs to your own. Think about
-whether or not your feature is likely to be used by other users of the project.
+source projects are used by many developers, who may have entirely different needs to your own. Think about whether your feature is likely to be used by other users of the project.
 
 ## Procedure
 

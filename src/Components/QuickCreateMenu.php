@@ -1,24 +1,25 @@
 <?php
 
-namespace FilamentQuickCreate\Components;
+namespace Awcodes\FilamentQuickCreate\Components;
 
-use Closure;
+use Awcodes\FilamentQuickCreate\QuickCreatePlugin;
 use Exception;
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
 use Filament\Actions\CreateAction;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\App;
 use InvalidArgumentException;
 use Livewire\Component;
 
-class QuickCreateMenu extends Component implements HasActions
+class QuickCreateMenu extends Component implements HasForms, HasActions
 {
     use InteractsWithActions;
+    use InteractsWithForms;
 
     public array $resources = [];
 
@@ -27,24 +28,30 @@ class QuickCreateMenu extends Component implements HasActions
      */
     public function mount(): void
     {
-        $this->resources = filament()->getCurrentContext()->getPlugin('filament-quick-create')->getResources();
+        $this->resources = QuickCreatePlugin::get()->getResources();
     }
 
+    /**
+     * @throws Exception
+     */
     public function bootedInteractsWithActions(): void
     {
         $this->cacheActions();
     }
 
+    /**
+     * @throws Exception
+     */
     protected function cacheActions(): void
     {
         $actions = Action::configureUsing(
-            Closure::fromCallable([$this, 'configureAction']),
-            fn(): array => $this->getActions(),
+            $this->configureAction(...),
+            fn (): array => $this->getActions(),
         );
 
         foreach ($actions as $action) {
             if (! $action instanceof Action) {
-                throw new InvalidArgumentException('Header actions must be an instance of ' . Action::class . ', or ' . ActionGroup::class . '.');
+                throw new InvalidArgumentException('Header actions must be an instance of '.Action::class.', or '.ActionGroup::class.'.');
             }
             $this->cacheAction($action);
             $this->cachedActions[$action->getName()] = $action;
@@ -53,20 +60,21 @@ class QuickCreateMenu extends Component implements HasActions
 
     public function getActions(): array
     {
-        return collect($this->resources)->transform(function($resource) {
-                $r = App::make($resource['resource_name']);
-                return CreateAction::make($resource['action_name'])
-                    ->authorize($r::canCreate())
-                    ->model($resource['model'])
-                    ->form(function($arguments, $form) use ($r) {
-                        return $r->form($form->operation('create')->columns());
-                    });
-            })
+        return collect($this->resources)->transform(function ($resource) {
+            $r = App::make($resource['resource_name']);
+
+            return CreateAction::make($resource['action_name'])
+                ->authorize($r::canCreate())
+                ->model($resource['model'])
+                ->form(function ($arguments, $form) use ($r) {
+                    return $r->form($form->operation('create')->columns());
+                });
+        })
             ->values()
             ->toArray();
     }
 
-    public function render(): Application|Factory|View|\Illuminate\Foundation\Application
+    public function render(): View
     {
         return view('filament-quick-create::components.create-menu');
     }

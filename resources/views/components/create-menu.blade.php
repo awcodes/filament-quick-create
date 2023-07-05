@@ -4,9 +4,13 @@
         <x-slot name="trigger" class="ms-4 rtl:me-4 rtl:ms-0">
             <button
                 class="flex flex-shrink-0 w-10 h-10 rounded-full bg-gray-200 items-center justify-center dark:bg-gray-900"
-                aria-label="{{ __('filament::layout.buttons.user_menu.label') }}"
+                aria-label="{{ __('filament-quick-create::quick-create.button_label') }}"
             >
-                @svg('heroicon-o-plus', 'w-4 h-4')
+                <x-filament::icon
+                    alias="filament-quick-create::add"
+                    name="heroicon-o-plus"
+                    size="w-4 h-4"
+                />
             </button>
         </x-slot>
         <x-filament::dropdown.list>

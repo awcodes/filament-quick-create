@@ -1,10 +1,10 @@
 <?php
 
-namespace FilamentQuickCreate;
+namespace Awcodes\FilamentQuickCreate;
 
 use Closure;
-use Filament\Context;
 use Filament\Contracts\Plugin;
+use Filament\Panel;
 use Filament\Support\Concerns\EvaluatesClosures;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Str;
@@ -22,20 +22,13 @@ class QuickCreatePlugin implements Plugin
 
     protected bool $sort = true;
 
-    public function getId(): string
-    {
-        return 'filament-quick-create';
-    }
-
-    public function register(Context $context): void {}
-
-    public function boot(Context $context): void
+    public function boot(Panel $panel): void
     {
         Livewire::component('quick-create-menu', Components\QuickCreateMenu::class);
 
-        $this->getResourcesUsing(fn () => $context->getResources());
+        $this->getResourcesUsing(fn () => $panel->getResources());
 
-        $context
+        $panel
             ->renderHook(
                 name: 'user-menu.start',
                 callback: fn (): string => Blade::render('@livewire(\'quick-create-menu\')')
@@ -56,18 +49,14 @@ class QuickCreatePlugin implements Plugin
         return $this;
     }
 
-    public function sort(bool|Closure $condition = true): static
+    public static function get(): static
     {
-        $this->sort = $condition;
-
-        return $this;
+        return filament(app(static::class)->getId());
     }
 
-    public function getResourcesUsing(Closure $callback): static
+    public function getId(): string
     {
-        $this->getResourcesUsing = $callback;
-
-        return $this;
+        return 'filament-quick-create';
     }
 
     public function getExcludes(): array
@@ -87,10 +76,10 @@ class QuickCreatePlugin implements Plugin
             : $this->evaluate($this->getResourcesUsing);
 
         $list = collect($resources)
-            ->filter(function($item) {
+            ->filter(function ($item) {
                 return ! in_array($item, $this->getExcludes());
             })
-            ->map(function($resourceName): ?array {
+            ->map(function ($resourceName): ?array {
                 $resource = app($resourceName);
 
                 if ($resource->canCreate()) {
@@ -116,8 +105,31 @@ class QuickCreatePlugin implements Plugin
         return array_filter($list);
     }
 
+    public function getResourcesUsing(Closure $callback): static
+    {
+        $this->getResourcesUsing = $callback;
+
+        return $this;
+    }
+
     public function isSortable(): bool
     {
         return $this->evaluate($this->sort);
+    }
+
+    public static function make(): static
+    {
+        return app(static::class);
+    }
+
+    public function register(Panel $panel): void
+    {
+    }
+
+    public function sort(bool|Closure $condition = true): static
+    {
+        $this->sort = $condition;
+
+        return $this;
     }
 }
