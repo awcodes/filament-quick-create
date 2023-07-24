@@ -27,12 +27,6 @@ class QuickCreatePlugin implements Plugin
         Livewire::component('quick-create-menu', Components\QuickCreateMenu::class);
 
         $this->getResourcesUsing(fn () => $panel->getResources());
-
-//        $panel
-//            ->renderHook(
-//                name: 'user-menu.start',
-//                hook: fn (): string => Blade::render('@livewire(\'quick-create-menu\')')
-//            );
     }
 
     public function excludes(array $resources): static
