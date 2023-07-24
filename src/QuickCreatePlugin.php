@@ -28,11 +28,11 @@ class QuickCreatePlugin implements Plugin
 
         $this->getResourcesUsing(fn () => $panel->getResources());
 
-        $panel
-            ->renderHook(
-                name: 'user-menu.start',
-                callback: fn (): string => Blade::render('@livewire(\'quick-create-menu\')')
-            );
+//        $panel
+//            ->renderHook(
+//                name: 'user-menu.start',
+//                hook: fn (): string => Blade::render('@livewire(\'quick-create-menu\')')
+//            );
     }
 
     public function excludes(array $resources): static
@@ -124,6 +124,11 @@ class QuickCreatePlugin implements Plugin
 
     public function register(Panel $panel): void
     {
+        $panel
+            ->renderHook(
+                name: 'user-menu.start',
+                hook: fn (): string => Blade::render('@livewire(\'quick-create-menu\')')
+            );
     }
 
     public function sort(bool|Closure $condition = true): static
