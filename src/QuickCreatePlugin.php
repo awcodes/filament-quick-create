@@ -120,7 +120,7 @@ class QuickCreatePlugin implements Plugin
     {
         $panel
             ->renderHook(
-                name: 'panels::user-menu.start',
+                name: 'panels::user-menu.before',
                 hook: fn (): string => Blade::render('@livewire(\'quick-create-menu\')')
             );
     }
