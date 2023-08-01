@@ -2,7 +2,7 @@
 
 Plugin for [Filament Admin Panel](https://filamentphp.com) that adds a dropdown menu to the header to quickly create new items from anywhere in your app.
 
-![quick-create-og](https://github.com/awcodes/filament-quick-create/assets/3596800/ae05db80-b3e2-4c12-938b-d4339844d481)
+![quick-create-og](https://res.cloudinary.com/aw-codes/image/upload/w_1200,f_auto,q_auto/plugins/quick-create/awcodes-quick-create.jpg)
 
 ## Installation
 
