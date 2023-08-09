@@ -22,6 +22,8 @@ class QuickCreatePlugin implements Plugin
 
     protected bool $sort = true;
 
+    protected bool | Closure | null $shouldUseSlideOver = null;
+
     public function boot(Panel $panel): void
     {
         Livewire::component('quick-create-menu', Components\QuickCreateMenu::class);
@@ -77,7 +79,7 @@ class QuickCreatePlugin implements Plugin
                 $resource = app($resourceName);
 
                 if ($resource->canCreate()) {
-                    $actionName = 'create_'.Str::of($resource->getModel())->replace('\\', '')->snake();
+                    $actionName = 'create_' . Str::of($resource->getModel())->replace('\\', '')->snake();
 
                     return [
                         'resource_name' => $resourceName,
@@ -85,7 +87,7 @@ class QuickCreatePlugin implements Plugin
                         'model' => $resource->getModel(),
                         'icon' => $resource->getNavigationIcon(),
                         'action_name' => $actionName,
-                        'action' => ! $resource->hasPage('create') ? 'mountAction(\''.$actionName.'\')' : null,
+                        'action' => ! $resource->hasPage('create') ? 'mountAction(\'' . $actionName . '\')' : null,
                         'url' => $resource->hasPage('create') ? $resource::getUrl('create') : null,
                     ];
                 }
@@ -125,7 +127,19 @@ class QuickCreatePlugin implements Plugin
             );
     }
 
-    public function sort(bool|Closure $condition = true): static
+    public function shouldUseSlideOver(): bool
+    {
+        return $this->evaluate($this->shouldUseSlideOver) ?? false;
+    }
+
+    public function slideOver(bool $condition = true): static
+    {
+        $this->shouldUseSlideOver = $condition;
+
+        return $this;
+    }
+
+    public function sort(bool | Closure $condition = true): static
     {
         $this->sort = $condition;
 
