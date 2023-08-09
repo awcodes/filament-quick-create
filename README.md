@@ -100,3 +100,20 @@ public function panel(Panel $panel): Panel
         ])
 }
 ```
+
+### Slide Overs
+
+By default, Quick Create will render simple resources in a standard modal. If you would like to render them in a slide over instead you may use the `slideOver()` modifier to do so.
+
+```php
+use Awcodes\FilamentQuickCreate\QuickCreatePlugin;
+
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        ->plugins([
+            QuickCreatePlugin::make()
+                ->slideOver(),
+        ])
+}
+```

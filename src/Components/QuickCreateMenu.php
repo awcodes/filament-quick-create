@@ -51,7 +51,7 @@ class QuickCreateMenu extends Component implements HasForms, HasActions
 
         foreach ($actions as $action) {
             if (! $action instanceof Action) {
-                throw new InvalidArgumentException('Header actions must be an instance of '.Action::class.', or '.ActionGroup::class.'.');
+                throw new InvalidArgumentException('Header actions must be an instance of ' . Action::class . ', or ' . ActionGroup::class . '.');
             }
             $this->cacheAction($action);
             $this->cachedActions[$action->getName()] = $action;
@@ -66,6 +66,7 @@ class QuickCreateMenu extends Component implements HasForms, HasActions
             return CreateAction::make($resource['action_name'])
                 ->authorize($r::canCreate())
                 ->model($resource['model'])
+                ->slideOver(fn (): bool => QuickCreatePlugin::get()->shouldUseSlideOver())
                 ->form(function ($arguments, $form) use ($r) {
                     return $r->form($form->operation('create')->columns());
                 });
