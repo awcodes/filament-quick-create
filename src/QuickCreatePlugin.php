@@ -4,6 +4,7 @@ namespace Awcodes\FilamentQuickCreate;
 
 use Closure;
 use Filament\Contracts\Plugin;
+use Filament\Facades\Filament;
 use Filament\Panel;
 use Filament\Support\Concerns\EvaluatesClosures;
 use Illuminate\Support\Facades\Blade;
@@ -77,6 +78,10 @@ class QuickCreatePlugin implements Plugin
             })
             ->map(function ($resourceName): ?array {
                 $resource = app($resourceName);
+
+                if (Filament::hasTenancy() && ! Filament::getTenant()) {
+                    return null;
+                }
 
                 if ($resource->canCreate()) {
                     $actionName = 'create_' . Str::of($resource->getModel())->replace('\\', '')->snake();
