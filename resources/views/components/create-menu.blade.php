@@ -21,7 +21,7 @@
                     :href="$resource['url']"
                     :tag="$resource['url'] ? 'a' : 'button'"
                 >
-                    {{ $resource['label'] }}
+                    {{ __($resource['label']) }}
                 </x-filament::dropdown.list.item>
             @endforeach
         </x-filament::dropdown.list>
