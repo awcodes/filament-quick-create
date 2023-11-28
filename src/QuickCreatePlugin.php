@@ -94,7 +94,7 @@ class QuickCreatePlugin implements Plugin
                         'action_name' => $actionName,
                         'action' => ! $resource->hasPage('create') ? 'mountAction(\'' . $actionName . '\')' : null,
                         'url' => $resource->hasPage('create') ? $resource::getUrl('create') : null,
-                        'navigationsort' => $resource->getNavigationSort()
+                        'navigation' => $resource->getNavigationSort()
                     ];
                 }
 
