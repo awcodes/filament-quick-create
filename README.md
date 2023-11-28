@@ -86,7 +86,7 @@ public function panel(Panel $panel): Panel
 
 ### Sorting
 
-By default, Quick Create will sort all the displayed options in descending order. This can be disabled should you choose. In which case they will be displayed in the order they are registered with Filament.
+By default, Quick Create will sort all the displayed options in descending order by Label. This can be disabled should you choose. In which case they will be displayed in the order they are registered with Filament.
 
 ```php
 use Awcodes\FilamentQuickCreate\QuickCreatePlugin;
@@ -97,6 +97,23 @@ public function panel(Panel $panel): Panel
         ->plugins([
             QuickCreatePlugin::make()
                 ->sort(false),
+        ])
+}
+```
+
+### Sorting by recourse navigation
+
+By default, Quick Create will sort all the displayed options by Label. This can be changed to resource navigation sort should you choose. In which case they will be displayed in the order they are displayed in de navigation.
+
+```php
+use Awcodes\FilamentQuickCreate\QuickCreatePlugin;
+
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        ->plugins([
+            QuickCreatePlugin::make()
+                ->sortBy('navigation'),
         ])
 }
 ```
