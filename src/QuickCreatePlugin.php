@@ -25,6 +25,8 @@ class QuickCreatePlugin implements Plugin
 
     protected bool | Closure | null $shouldUseSlideOver = null;
 
+    protected string | Closure $sortBy = 'label';
+
     public function boot(Panel $panel): void
     {
         Livewire::component('quick-create-menu', Components\QuickCreateMenu::class);
