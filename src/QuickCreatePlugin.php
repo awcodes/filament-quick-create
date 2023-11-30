@@ -154,7 +154,7 @@ class QuickCreatePlugin implements Plugin
 
     public function sortBy(string | Closure $sortBy = 'label'): static
     {
-        if(!in_array(['label','navigation'])){
+        if(!in_array($sortBy, ['label','navigation'])){
             $sortBy = 'label';
         }
         
