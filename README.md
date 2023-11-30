@@ -101,9 +101,9 @@ public function panel(Panel $panel): Panel
 }
 ```
 
-### Sorting by recourse navigation
+### Sorting by resource navigation
 
-By default, Quick Create will sort all the displayed options by Label. This can be changed to resource navigation sort should you choose. In which case they will be displayed in the order they are displayed in de navigation.
+By default, Quick Create will sort all the displayed options by Label. This can be changed to resource navigation sort should you choose. In which case they will be displayed in the order they are displayed in the navigation.
 
 ```php
 use Awcodes\FilamentQuickCreate\QuickCreatePlugin;
