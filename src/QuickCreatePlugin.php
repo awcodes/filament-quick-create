@@ -96,7 +96,7 @@ class QuickCreatePlugin implements Plugin
                         'action_name' => $actionName,
                         'action' => ! $resource->hasPage('create') ? 'mountAction(\'' . $actionName . '\')' : null,
                         'url' => $resource->hasPage('create') ? $resource::getUrl('create') : null,
-                        'navigation' => $resource->getNavigationSort()
+                        'navigation' => $resource->getNavigationSort(),
                     ];
                 }
 
@@ -156,10 +156,10 @@ class QuickCreatePlugin implements Plugin
 
     public function sortBy(string | Closure $sortBy = 'label'): static
     {
-        if(!in_array($sortBy, ['label','navigation'])){
+        if (! in_array($sortBy, ['label', 'navigation'])) {
             $sortBy = 'label';
         }
-        
+
         $this->sortBy = $sortBy;
 
         return $this;
