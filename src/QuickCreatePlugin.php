@@ -25,6 +25,8 @@ class QuickCreatePlugin implements Plugin
 
     protected bool | Closure | null $shouldUseSlideOver = null;
 
+    protected string | Closure $sortBy = 'label';
+
     public function boot(Panel $panel): void
     {
         Livewire::component('quick-create-menu', Components\QuickCreateMenu::class);
@@ -94,12 +96,13 @@ class QuickCreatePlugin implements Plugin
                         'action_name' => $actionName,
                         'action' => ! $resource->hasPage('create') ? 'mountAction(\'' . $actionName . '\')' : null,
                         'url' => $resource->hasPage('create') ? $resource::getUrl('create') : null,
+                        'navigation' => $resource->getNavigationSort()
                     ];
                 }
 
                 return null;
             })
-            ->when($this->isSortable(), fn ($collection) => $collection->sortBy('label'))
+            ->when($this->isSortable(), fn ($collection) => $collection->sortBy($this->sortBy))
             ->values()
             ->toArray();
 
@@ -147,6 +150,17 @@ class QuickCreatePlugin implements Plugin
     public function sort(bool | Closure $condition = true): static
     {
         $this->sort = $condition;
+
+        return $this;
+    }
+
+    public function sortBy(string | Closure $sortBy = 'label'): static
+    {
+        if(!in_array($sortBy, ['label','navigation'])){
+            $sortBy = 'label';
+        }
+        
+        $this->sortBy = $sortBy;
 
         return $this;
     }
