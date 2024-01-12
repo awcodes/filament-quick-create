@@ -75,6 +75,11 @@ class QuickCreateMenu extends Component implements HasForms, HasActions
             ->toArray();
     }
 
+    public function shouldBeHidden(): bool
+    {
+        return QuickCreatePlugin::get()->shouldBeHidden();
+    }
+
     public function render(): View
     {
         return view('filament-quick-create::components.create-menu');
