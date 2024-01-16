@@ -23,17 +23,17 @@ class QuickCreatePlugin implements Plugin
 
     protected bool $sort = true;
 
-    protected bool|Closure|null $shouldUseSlideOver = null;
+    protected bool | Closure | null $shouldUseSlideOver = null;
 
-    protected string|Closure $sortBy = 'label';
+    protected string | Closure $sortBy = 'label';
 
-    protected bool|Closure $hidden = false;
+    protected bool | Closure $hidden = false;
 
     public function boot(Panel $panel): void
     {
         Livewire::component('quick-create-menu', Components\QuickCreateMenu::class);
 
-        $this->getResourcesUsing(fn() => $panel->getResources());
+        $this->getResourcesUsing(fn () => $panel->getResources());
     }
 
     public function excludes(array $resources): static
@@ -78,12 +78,12 @@ class QuickCreatePlugin implements Plugin
 
         $list = collect($resources)
             ->filter(function ($item) {
-                return !in_array($item, $this->getExcludes());
+                return ! in_array($item, $this->getExcludes());
             })
             ->map(function ($resourceName): ?array {
                 $resource = app($resourceName);
 
-                if (Filament::hasTenancy() && !Filament::getTenant()) {
+                if (Filament::hasTenancy() && ! Filament::getTenant()) {
                     return null;
                 }
 
@@ -96,7 +96,7 @@ class QuickCreatePlugin implements Plugin
                         'model' => $resource->getModel(),
                         'icon' => $resource->getNavigationIcon(),
                         'action_name' => $actionName,
-                        'action' => !$resource->hasPage('create') ? 'mountAction(\'' . $actionName . '\')' : null,
+                        'action' => ! $resource->hasPage('create') ? 'mountAction(\'' . $actionName . '\')' : null,
                         'url' => $resource->hasPage('create') ? $resource::getUrl('create') : null,
                         'navigation' => $resource->getNavigationSort(),
                     ];
@@ -104,7 +104,7 @@ class QuickCreatePlugin implements Plugin
 
                 return null;
             })
-            ->when($this->isSortable(), fn($collection) => $collection->sortBy($this->sortBy))
+            ->when($this->isSortable(), fn ($collection) => $collection->sortBy($this->sortBy))
             ->values()
             ->toArray();
 
@@ -133,7 +133,7 @@ class QuickCreatePlugin implements Plugin
         $panel
             ->renderHook(
                 name: 'panels::user-menu.before',
-                hook: fn(): string => Blade::render('@livewire(\'quick-create-menu\')')
+                hook: fn (): string => Blade::render('@livewire(\'quick-create-menu\')')
             );
     }
 
@@ -149,16 +149,16 @@ class QuickCreatePlugin implements Plugin
         return $this;
     }
 
-    public function sort(bool|Closure $condition = true): static
+    public function sort(bool | Closure $condition = true): static
     {
         $this->sort = $condition;
 
         return $this;
     }
 
-    public function sortBy(string|Closure $sortBy = 'label'): static
+    public function sortBy(string | Closure $sortBy = 'label'): static
     {
-        if (!in_array($sortBy, ['label', 'navigation'])) {
+        if (! in_array($sortBy, ['label', 'navigation'])) {
             $sortBy = 'label';
         }
 
@@ -167,7 +167,7 @@ class QuickCreatePlugin implements Plugin
         return $this;
     }
 
-    public function hidden(bool|Closure $hidden = true): static
+    public function hidden(bool | Closure $hidden = true): static
     {
         $this->hidden = $hidden;
 
