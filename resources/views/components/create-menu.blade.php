@@ -1,5 +1,5 @@
 <div class="quick-create-component">
-@if ($resources)
+@if ($resources && $this->shouldBeHidden() === false)
     <x-filament::dropdown placement="bottom-end">
         <x-slot name="trigger">
             <button

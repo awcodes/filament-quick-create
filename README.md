@@ -134,3 +134,20 @@ public function panel(Panel $panel): Panel
         ])
 }
 ```
+
+### Hiding Quick Create
+
+By default, Quick Create is visible if there are registered resources. If you would like to hide it you may use the `hidden()` modifier to do so.
+
+```php
+use Awcodes\FilamentQuickCreate\QuickCreatePlugin;
+
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        ->plugins([
+            QuickCreatePlugin::make()
+                ->hidden(fn() => Filament::getTenant()->requiresOnboarding()),
+        ])
+}
+```
