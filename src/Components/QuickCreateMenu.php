@@ -66,6 +66,7 @@ class QuickCreateMenu extends Component implements HasForms, HasActions
             return CreateAction::make($resource['action_name'])
                 ->authorize($r::canCreate())
                 ->model($resource['model'])
+                ->modelLabel($r->getModelLabel())
                 ->slideOver(fn (): bool => QuickCreatePlugin::get()->shouldUseSlideOver())
                 ->form(function ($arguments, $form) use ($r) {
                     return $r->form($form->operation('create')->columns());
