@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\App;
 use InvalidArgumentException;
 use Livewire\Component;
 
-class QuickCreateMenu extends Component implements HasForms, HasActions
+class QuickCreateMenu extends Component implements HasActions, HasForms
 {
     use InteractsWithActions;
     use InteractsWithForms;
