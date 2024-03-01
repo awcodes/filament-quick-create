@@ -29,6 +29,8 @@ class QuickCreatePlugin implements Plugin
 
     protected bool | Closure $hidden = false;
 
+    protected bool | Closure | null $rounded = null;
+
     public function boot(Panel $panel): void
     {
         Livewire::component('quick-create-menu', Components\QuickCreateMenu::class);
@@ -46,6 +48,13 @@ class QuickCreatePlugin implements Plugin
     public function includes(array $resources): static
     {
         $this->includes = $resources;
+
+        return $this;
+    }
+
+    public function rounded(bool | Closure $condition = true): static
+    {
+        $this->rounded = $condition;
 
         return $this;
     }
@@ -121,6 +130,11 @@ class QuickCreatePlugin implements Plugin
     public function isSortable(): bool
     {
         return $this->evaluate($this->sort);
+    }
+
+    public function isRounded(): bool
+    {
+        return $this->evaluate($this->rounded) ?? true;
     }
 
     public static function make(): static

@@ -23,12 +23,15 @@ class QuickCreateMenu extends Component implements HasForms, HasActions
 
     public array $resources = [];
 
+    public ?bool $rounded = null;
+
     /**
      * @throws Exception
      */
     public function mount(): void
     {
         $this->resources = QuickCreatePlugin::get()->getResources();
+        $this->rounded = QuickCreatePlugin::get()->isRounded();
     }
 
     /**
