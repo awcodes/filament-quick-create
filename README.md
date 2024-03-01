@@ -118,6 +118,23 @@ public function panel(Panel $panel): Panel
 }
 ```
 
+### Appearance
+
+By default, the Quick Create button will be fully rounded if you would like to have a more square button you can disable the rounding with the `rounded()` method.
+
+```php
+use Awcodes\FilamentQuickCreate\QuickCreatePlugin;
+
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        ->plugins([
+            QuickCreatePlugin::make()
+                ->rounded(false),
+        ])
+}
+```
+
 ### Slide Overs
 
 By default, Quick Create will render simple resources in a standard modal. If you would like to render them in a slide over instead you may use the `slideOver()` modifier to do so.
