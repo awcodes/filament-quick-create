@@ -118,6 +118,21 @@ public function panel(Panel $panel): Panel
 }
 ```
 
+### Custom resource label
+
+By default, Quick Create will create the label from the resource's model. You can override this by providing an optional `getQuickCreateLabel` in your resource class.
+
+```php
+
+namespace App\Filament\Resources;
+
+class AgentResource extends Resource {
+    public function getQuickCreateLabel() {
+        return __('Agent');
+    }
+}
+```
+
 ### Registering keybindings
 
 You can attach keyboard shortcuts to trigger the Quick Create dropdown. To configure these, pass the keyBindings() method to the configuration:
