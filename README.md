@@ -120,7 +120,7 @@ public function panel(Panel $panel): Panel
 
 ### Custom resource label
 
-By default, Quick Create will create the label from the resource's model. You can override this by providing an optional `getQuickCreateLabel` in your resource class.
+By default, Quick Create will create the label from the resource's model. You can override this by providing an optional `getQuickCreateLabel()` method in your resource class.
 
 ```php
 
