@@ -83,7 +83,7 @@ class QuickCreateMenu extends Component implements HasActions, HasForms
 
                 if ($canCreateAnother === null) {
                     $canCreateAnother = true;
-                    
+
                     if ($r->hasPage('create')) {
                         $canCreateAnother = App::make($r->getPages()['create']->getPage())::canCreateAnother();
                     } else {

@@ -26,33 +26,33 @@ class QuickCreatePlugin implements Plugin
 
     protected bool $sort = true;
 
-    protected bool|Closure|null $shouldUseSlideOver = null;
+    protected bool | Closure | null $shouldUseSlideOver = null;
 
-    protected string|Closure $sortBy = 'label';
+    protected string | Closure $sortBy = 'label';
 
-    protected bool|Closure $hidden = false;
+    protected bool | Closure $hidden = false;
 
-    protected bool|Closure|null $rounded = null;
+    protected bool | Closure | null $rounded = null;
 
-    protected string|Closure|null $renderUsingHook = null;
+    protected string | Closure | null $renderUsingHook = null;
 
-    protected bool|Closure|null $hiddenIcons = null;
+    protected bool | Closure | null $hiddenIcons = null;
 
-    protected string|Closure|null $label = null;
+    protected string | Closure | null $label = null;
 
-    protected bool|Closure $shouldUseModal = false;
+    protected bool | Closure $shouldUseModal = false;
 
-    protected string|array|Closure|null $keyBindings = null;
+    protected string | array | Closure | null $keyBindings = null;
 
-    protected bool|Closure|null $createAnother = null;
+    protected bool | Closure | null $createAnother = null;
 
-    protected string|array|Closure|null $modalWidths = null;
+    protected string | array | Closure | null $modalWidths = null;
 
-    protected string|Closure|null $modalHeading = null;
+    protected string | Closure | null $modalHeading = null;
 
-    protected string|Closure|null $modalDescription = null;
+    protected string | Closure | null $modalDescription = null;
 
-    protected array|Closure|null $modalExtraAttributes = null;
+    protected array | Closure | null $modalExtraAttributes = null;
 
     public function boot(Panel $panel): void
     {
@@ -74,7 +74,7 @@ class QuickCreatePlugin implements Plugin
         return $this;
     }
 
-    public function rounded(bool|Closure $condition = true): static
+    public function rounded(bool | Closure $condition = true): static
     {
         $this->rounded = $condition;
 
@@ -119,7 +119,7 @@ class QuickCreatePlugin implements Plugin
                 }
 
                 if ($resource->canCreate()) {
-                    $actionName = 'create_'.Str::of($resource->getModel())->replace('\\', '')->snake();
+                    $actionName = 'create_' . Str::of($resource->getModel())->replace('\\', '')->snake();
 
                     return [
                         'resource_name' => $resourceName,
@@ -127,7 +127,7 @@ class QuickCreatePlugin implements Plugin
                         'model' => $resource->getModel(),
                         'icon' => $resource->getNavigationIcon(),
                         'action_name' => $actionName,
-                        'action' => ! $resource->hasPage('create') || $this->shouldUseModal() ? 'mountAction(\''.$actionName.'\')' : null,
+                        'action' => ! $resource->hasPage('create') || $this->shouldUseModal() ? 'mountAction(\'' . $actionName . '\')' : null,
                         'url' => $resource->hasPage('create') && ! $this->shouldUseModal() ? $resource::getUrl('create') : null,
                         'navigation' => $resource->getNavigationSort(),
                     ];
@@ -185,14 +185,14 @@ class QuickCreatePlugin implements Plugin
         return $this;
     }
 
-    public function sort(bool|Closure $condition = true): static
+    public function sort(bool | Closure $condition = true): static
     {
         $this->sort = $condition;
 
         return $this;
     }
 
-    public function sortBy(string|Closure $sortBy = 'label'): static
+    public function sortBy(string | Closure $sortBy = 'label'): static
     {
         if (! in_array($sortBy, ['label', 'navigation'])) {
             $sortBy = 'label';
@@ -202,7 +202,7 @@ class QuickCreatePlugin implements Plugin
         return $this;
     }
 
-    public function hidden(bool|Closure $hidden = true): static
+    public function hidden(bool | Closure $hidden = true): static
     {
         $this->hidden = $hidden;
 
@@ -214,7 +214,7 @@ class QuickCreatePlugin implements Plugin
         return $this->evaluate($this->hidden) ?? false;
     }
 
-    public function renderUsingHook(string|Closure $panelHook): static
+    public function renderUsingHook(string | Closure $panelHook): static
     {
         $this->renderUsingHook = $panelHook;
 
@@ -226,7 +226,7 @@ class QuickCreatePlugin implements Plugin
         return $this->evaluate($this->renderUsingHook) ?? PanelsRenderHook::USER_MENU_BEFORE;
     }
 
-    public function hiddenIcons(bool|Closure $condition = true): static
+    public function hiddenIcons(bool | Closure $condition = true): static
     {
         $this->hiddenIcons = $condition;
 
@@ -238,7 +238,7 @@ class QuickCreatePlugin implements Plugin
         return $this->evaluate($this->hiddenIcons) ?? false;
     }
 
-    public function label(string|Closure $label): static
+    public function label(string | Closure $label): static
     {
         $this->label = $label;
 
@@ -255,14 +255,14 @@ class QuickCreatePlugin implements Plugin
         return $this->evaluate($this->shouldUseModal) ?? false;
     }
 
-    public function alwaysShowModal(bool|Closure $condition = true): static
+    public function alwaysShowModal(bool | Closure $condition = true): static
     {
         $this->shouldUseModal = $condition;
 
         return $this;
     }
 
-    public function keyBindings(string|array|Closure|null $bindings): static
+    public function keyBindings(string | array | Closure | null $bindings): static
     {
         $this->keyBindings = $bindings;
 
@@ -274,7 +274,7 @@ class QuickCreatePlugin implements Plugin
         return collect($this->evaluate($this->keyBindings))->toArray();
     }
 
-    public function createAnother(bool|Closure $condition = true): static
+    public function createAnother(bool | Closure $condition = true): static
     {
         $this->createAnother = $condition;
 
@@ -286,7 +286,7 @@ class QuickCreatePlugin implements Plugin
         return $this->evaluate($this->createAnother);
     }
 
-    public function modalWidths(string|array|Closure $widths): static
+    public function modalWidths(string | array | Closure $widths): static
     {
         $this->modalWidths = $widths;
 
@@ -308,7 +308,7 @@ class QuickCreatePlugin implements Plugin
         return null;
     }
 
-    public function modalHeading(string|Closure $heading): static
+    public function modalHeading(string | Closure $heading): static
     {
         $this->modalHeading = $heading;
 
@@ -322,7 +322,7 @@ class QuickCreatePlugin implements Plugin
         return $heading ? str_replace(':label', $resourceLabel, $heading) : null;
     }
 
-    public function modalDescription(string|Closure $description): static
+    public function modalDescription(string | Closure $description): static
     {
         $this->modalDescription = $description;
 
@@ -336,7 +336,7 @@ class QuickCreatePlugin implements Plugin
         return $description ? str_replace(':label', $resourceLabel, $description) : null;
     }
 
-    public function modalExtraAttributes(array|Closure $attributes): static
+    public function modalExtraAttributes(array | Closure $attributes): static
     {
         $this->modalExtraAttributes = $attributes;
 
