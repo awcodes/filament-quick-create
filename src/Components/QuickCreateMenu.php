@@ -77,13 +77,13 @@ class QuickCreateMenu extends Component implements HasActions, HasForms
     public function getActions(): array
     {
         return collect($this->resources)
-            ->transform(function ($resource) {
+            ->transform(function ($resource, $index) {
                 $r = App::make($resource['resource_name']);
                 $canCreateAnother = QuickCreatePlugin::get()->canCreateAnother();
 
                 if ($canCreateAnother === null) {
                     $canCreateAnother = true;
-                    
+
                     if ($r->hasPage('create')) {
                         $canCreateAnother = App::make($r->getPages()['create']->getPage())::canCreateAnother();
                     } else {
@@ -109,6 +109,10 @@ class QuickCreateMenu extends Component implements HasActions, HasForms
                     ->authorize($r::canCreate())
                     ->model($resource['model'])
                     ->slideOver(fn (): bool => QuickCreatePlugin::get()->shouldUseSlideOver())
+                    ->modalWidth(fn (): ?string => QuickCreatePlugin::get()->getModalWidth($index))
+                    ->modalHeading(fn () => QuickCreatePlugin::get()->getModalHeading($resource['label']))
+                    ->modalDescription(fn () => QuickCreatePlugin::get()->getModalDescription($resource['label']))
+                    ->extraModalWindowAttributes(fn () => QuickCreatePlugin::get()->getModalExtraAttributes())
                     ->form(function ($arguments, $form) use ($r) {
                         return $r->form($form->operation('create')->columns());
                     })

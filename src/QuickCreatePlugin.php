@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Awcodes\FilamentQuickCreate;
 
 use Closure;
@@ -43,6 +45,14 @@ class QuickCreatePlugin implements Plugin
     protected string | array | Closure | null $keyBindings = null;
 
     protected bool | Closure | null $createAnother = null;
+
+    protected string | array | Closure | null $modalWidths = null;
+
+    protected string | Closure | null $modalHeading = null;
+
+    protected string | Closure | null $modalDescription = null;
+
+    protected array | Closure | null $modalExtraAttributes = null;
 
     public function boot(Panel $panel): void
     {
@@ -274,5 +284,67 @@ class QuickCreatePlugin implements Plugin
     public function canCreateAnother(): ?bool
     {
         return $this->evaluate($this->createAnother);
+    }
+
+    public function modalWidths(string | array | Closure $widths): static
+    {
+        $this->modalWidths = $widths;
+
+        return $this;
+    }
+
+    public function getModalWidth(int $index = 0): ?string
+    {
+        $widths = $this->evaluate($this->modalWidths);
+
+        if (is_string($widths)) {
+            return $widths;
+        }
+
+        if (is_array($widths)) {
+            return $widths[$index] ?? array_values($widths)[0] ?? null;
+        }
+
+        return null;
+    }
+
+    public function modalHeading(string | Closure $heading): static
+    {
+        $this->modalHeading = $heading;
+
+        return $this;
+    }
+
+    public function getModalHeading(string $resourceLabel): ?string
+    {
+        $heading = $this->evaluate($this->modalHeading);
+
+        return $heading ? str_replace(':label', $resourceLabel, $heading) : null;
+    }
+
+    public function modalDescription(string | Closure $description): static
+    {
+        $this->modalDescription = $description;
+
+        return $this;
+    }
+
+    public function getModalDescription(string $resourceLabel): ?string
+    {
+        $description = $this->evaluate($this->modalDescription);
+
+        return $description ? str_replace(':label', $resourceLabel, $description) : null;
+    }
+
+    public function modalExtraAttributes(array | Closure $attributes): static
+    {
+        $this->modalExtraAttributes = $attributes;
+
+        return $this;
+    }
+
+    public function getModalExtraAttributes(): ?array
+    {
+        return $this->evaluate($this->modalExtraAttributes);
     }
 }
