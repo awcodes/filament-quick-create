@@ -1,8 +1,10 @@
 <?php
 
-namespace Awcodes\FilamentQuickCreate\Components;
+declare(strict_types=1);
 
-use Awcodes\FilamentQuickCreate\QuickCreatePlugin;
+namespace Awcodes\QuickCreate\Components;
+
+use Awcodes\QuickCreate\QuickCreatePlugin;
 use Exception;
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
@@ -12,13 +14,15 @@ use Filament\Actions\CreateAction;
 use Filament\Facades\Filament;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
-use Filament\Forms\Form;
+use Filament\Schemas\Schema;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
 use InvalidArgumentException;
 use Livewire\Component;
+use ReflectionMethod;
 
 class QuickCreateMenu extends Component implements HasActions, HasForms
 {
@@ -55,29 +59,10 @@ class QuickCreateMenu extends Component implements HasActions, HasForms
         $this->cacheActions();
     }
 
-    /**
-     * @throws Exception
-     */
-    protected function cacheActions(): void
-    {
-        $actions = Action::configureUsing(
-            $this->configureAction(...),
-            fn (): array => $this->getActions(),
-        );
-
-        foreach ($actions as $action) {
-            if (! $action instanceof Action) {
-                throw new InvalidArgumentException('Header actions must be an instance of ' . Action::class . ', or ' . ActionGroup::class . '.');
-            }
-            $this->cacheAction($action);
-            $this->cachedActions[$action->getName()] = $action;
-        }
-    }
-
-    public function getActions(): array
+    public function getActions(): Collection
     {
         return collect($this->resources)
-            ->transform(function ($resource, $index) {
+            ->transform(function (array $resource, $index): CreateAction {
                 $r = App::make($resource['resource_name']);
                 $canCreateAnother = QuickCreatePlugin::get()->canCreateAnother();
 
@@ -85,18 +70,16 @@ class QuickCreateMenu extends Component implements HasActions, HasForms
                     $canCreateAnother = true;
 
                     if ($r->hasPage('create')) {
-                        $canCreateAnother = App::make($r->getPages()['create']->getPage())::canCreateAnother();
+                        $canCreateAnother = App::make($r->getPages()['create']->getPage())->canCreateAnother();
                     } else {
                         $page = isset($r->getPages()['index'])
                             ? $r->getPages()['index']->getPage()
                             : null;
 
                         if ($page) {
-                            $reflectionMethod = new \ReflectionMethod($page, 'getHeaderActions');
+                            $reflectionMethod = new ReflectionMethod($page, 'getHeaderActions');
                             $actions = $reflectionMethod->invoke(new $page());
-                            $createAction = collect($actions)->filter(function ($action) {
-                                return $action instanceof CreateAction;
-                            })->first();
+                            $createAction = collect($actions)->filter(fn ($action): bool => $action instanceof CreateAction)->first();
 
                             if ($createAction) {
                                 $canCreateAnother = $createAction->canCreateAnother();
@@ -110,14 +93,12 @@ class QuickCreateMenu extends Component implements HasActions, HasForms
                     ->model($resource['model'])
                     ->slideOver(fn (): bool => QuickCreatePlugin::get()->shouldUseSlideOver())
                     ->modalWidth(fn (): ?string => QuickCreatePlugin::get()->getModalWidth($index))
-                    ->modalHeading(fn () => QuickCreatePlugin::get()->getModalHeading($resource['label']))
-                    ->modalDescription(fn () => QuickCreatePlugin::get()->getModalDescription($resource['label']))
-                    ->extraModalWindowAttributes(fn () => QuickCreatePlugin::get()->getModalExtraAttributes())
-                    ->form(function ($arguments, $form) use ($r) {
-                        return $r->form($form->operation('create')->columns());
-                    })
+                    ->modalHeading(fn (): ?string => QuickCreatePlugin::get()->getModalHeading($resource['label']))
+                    ->modalDescription(fn (): ?string => QuickCreatePlugin::get()->getModalDescription($resource['label']))
+                    ->extraModalWindowAttributes(fn (): array => QuickCreatePlugin::get()->getModalExtraAttributes() ?? [])
+                    ->schema(fn ($arguments, $form) => $r->form($form->operation('create')->columns()))
                     ->createAnother($canCreateAnother)
-                    ->action(function (array $arguments, Form $form, CreateAction $action) use ($r): void {
+                    ->action(function (array $arguments, Schema $form, CreateAction $action) use ($r): void {
                         $model = $action->getModel();
 
                         $record = $action->process(function (array $data, HasActions $livewire) use ($model, $action, $r): Model {
@@ -170,15 +151,12 @@ class QuickCreateMenu extends Component implements HasActions, HasForms
                             $form->fill();
 
                             $action->halt();
-
-                            return;
                         }
 
                         $action->success();
                     });
             })
-            ->values()
-            ->toArray();
+            ->values();
     }
 
     public function toggleDropdown(): void
@@ -193,9 +171,22 @@ class QuickCreateMenu extends Component implements HasActions, HasForms
 
     public function render(): View
     {
-        return view('filament-quick-create::components.create-menu')
+        return view('quick-create::components.create-menu')
             ->with([
                 'keyBindings' => $this->keyBindings,
             ]);
+    }
+
+    /** @throws Exception */
+    protected function cacheActions(): void
+    {
+        foreach ($this->getActions() as $action) {
+            if (! $action instanceof Action) {
+                throw new InvalidArgumentException('Header actions must be an instance of '.Action::class.', or '.ActionGroup::class.'.');
+            }
+
+            $this->cacheAction($action);
+            $this->cachedActions[$action->getName()] = $action;
+        }
     }
 }

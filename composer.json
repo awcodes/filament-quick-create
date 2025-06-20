@@ -2,9 +2,11 @@
     "name": "awcodes/filament-quick-create",
     "description": "Plugin for Filament Admin that adds a dropdown menu to the header to quickly create new items.",
     "keywords": [
-        "framework",
+        "awcodes",
         "laravel",
-        "filament"
+        "filament",
+        "quick-create",
+        "plugins"
     ],
     "license": "MIT",
     "authors": [
@@ -15,36 +17,55 @@
         }
     ],
     "require": {
-        "php": "^8.1",
-        "filament/filament": "^v3.2.23",
+        "php": "^8.2",
+        "filament/filament": "^v4.0",
         "spatie/laravel-package-tools": "^1.15.0"
     },
     "require-dev": {
-        "laravel/pint": "^1.0",
+        "laravel/pint": "^1.10",
+        "orchestra/testbench": "^9.0|^10.0",
+        "pestphp/pest": "^3.7",
+        "pestphp/pest-plugin-laravel": "^3.0",
+        "pestphp/pest-plugin-livewire": "^3.0",
+        "rector/rector": "^2.0",
         "spatie/laravel-ray": "^1.26"
     },
     "autoload": {
         "psr-4": {
-            "Awcodes\\FilamentQuickCreate\\": "src/"
+            "Awcodes\\QuickCreate\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Awcodes\\FilamentQuickCreate\\Tests\\": "tests/"
+            "Awcodes\\QuickCreate\\Tests\\": "tests/src",
+            "Awcodes\\QuickCreate\\Tests\\Database\\Factories\\": "tests/database/factories"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Awcodes\\FilamentQuickCreate\\QuickCreateServiceProvider"
+                "Awcodes\\QuickCreate\\QuickCreateServiceProvider"
             ]
         }
     },
+    "scripts": {
+        "lint": "pint",
+        "refactor": "rector",
+        "test:lint": "pint --test",
+        "test:refactor": "rector --dry-run",
+        "test:unit": "pest",
+        "test": [
+            "@test:refactor",
+            "@test:lint",
+            "@test:unit"
+        ]
+    },
     "config": {
         "optimize-autoloader": true,
-        "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "pestphp/pest-plugin": true,
             "phpstan/extension-installer": true
         }
     },
