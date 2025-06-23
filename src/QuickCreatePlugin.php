@@ -345,6 +345,6 @@ class QuickCreatePlugin implements Plugin
 
     public function getModalExtraAttributes(): ?array
     {
-        return $this->evaluate($this->modalExtraAttributes);
+        return $this->evaluate($this->modalExtraAttributes) ?? [];
     }
 }
