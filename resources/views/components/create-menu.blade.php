@@ -29,7 +29,10 @@
                         'size-8' => ! $label,
                         'py-1 ps-3 pe-4 gap-1' => $label,
                     ])
-                    aria-label="{{ __('filament-quick-create::quick-create.button_label') }}"
+                    x-tooltip="{
+                        content: '{{ __('quick-create::quick-create.button_label') }}'
+                    }"
+                    aria-label="{{ __('quick-create::quick-create.button_label') }}"
                 >
                     <x-filament::icon
                         alias="filament-quick-create::add"
