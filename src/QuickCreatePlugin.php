@@ -54,6 +54,8 @@ class QuickCreatePlugin implements Plugin
 
     protected array|Closure|null $modalExtraAttributes = null;
 
+    protected string|Closure|null $tooltip = null;
+
     public static function get(): static
     {
         return filament(app(static::class)->getId());
@@ -354,5 +356,17 @@ class QuickCreatePlugin implements Plugin
     public function getModalExtraAttributes(): ?array
     {
         return $this->evaluate($this->modalExtraAttributes);
+    }
+
+    public function tooltip(string|Closure|null $tooltip = null): static
+    {
+        $this->tooltip = $tooltip ?? __('quick-create::quick-create.button_label');
+
+        return $this;
+    }
+
+    public function getTooltip(): ?string
+    {
+        return $this->evaluate($this->tooltip);
     }
 }

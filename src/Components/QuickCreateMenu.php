@@ -39,6 +39,8 @@ class QuickCreateMenu extends Component implements HasActions, HasForms
 
     public ?array $keyBindings = null;
 
+    public ?string $tooltip = null;
+
     /**
      * @throws Exception
      */
@@ -49,6 +51,7 @@ class QuickCreateMenu extends Component implements HasActions, HasForms
         $this->hiddenIcons = QuickCreatePlugin::get()->shouldHideIcons();
         $this->label = QuickCreatePlugin::get()->getLabel();
         $this->keyBindings = QuickCreatePlugin::get()->getKeyBindings();
+        $this->tooltip = QuickCreatePlugin::get()->getTooltip();
     }
 
     /**
