@@ -84,23 +84,6 @@ public function panel(Panel $panel): Panel
 }
 ```
 
-### Tooltip
-
-If you would like to include a tooltip for users hovering over the button you may do so with the `tooltip()` modifier.
-
-```php
-use Awcodes\FilamentQuickCreate\QuickCreatePlugin;
-
-public function panel(Panel $panel): Panel
-{
-    return $panel
-        ->plugins([
-            QuickCreatePlugin::make()
-                ->tooltip('Create a new item.'),
-        ])
-}
-```
-
 ### Sorting
 
 By default, Quick Create will sort all the displayed options in descending order by Label. This can be disabled should you choose. In which case they will be displayed in the order they are registered with Filament.
