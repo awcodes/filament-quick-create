@@ -15,10 +15,6 @@ Plugin for [Filament Panels](https://filamentphp.com) that adds a dropdown menu 
 | 4.x             | 4.x              |
 | 5.x             | 5.x              |
 
-## Upgrading from v2 to v3
-
-If you are upgrading from version 2 to version 3, you will need to update the namespace anywhere you are using the plugin from `Awcodes\FilamentQuickCreate` to `Awcodes\QuickCreate`.
-
 ## Installation
 
 Install the package via composer
