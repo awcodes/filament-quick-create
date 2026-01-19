@@ -7,7 +7,7 @@ on:
       - opened
       - synchronize
     branches:
-      - 4.x
+      - 5.x
     paths:
       - '**.php'
       - '.github/workflows/tests.yml'
