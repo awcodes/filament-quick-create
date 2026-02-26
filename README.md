@@ -1,4 +1,5 @@
-![quick-create-og](https://res.cloudinary.com/aw-codes/image/upload/w_1200,f_auto,q_auto/plugins/quick-create/awcodes-quick-create.jpg)
+<img src="https://res.cloudinary.com/aw-codes/image/upload/w_1200,f_auto,q_auto/plugins/quick-create/awcodes-quick-create.jpg" alt="quick create thumbnail" width="1200" height="auto" class="filament-hidden" style="width: 100%;" />
+
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/awcodes/filament-quick-create.svg?style=flat-square)](https://packagist.org/packages/awcodes/filament-quick-create)
 [![Total Downloads](https://img.shields.io/packagist/dt/awcodes/filament-quick-create.svg?style=flat-square)](https://packagist.org/packages/awcodes/filament-quick-create)
 
