@@ -68,7 +68,6 @@ class QuickCreatePlugin implements Plugin
 
     public function boot(Panel $panel): void
     {
-        Livewire::component('quick-create-menu', Components\QuickCreateMenu::class);
         $this->getResourcesUsing(fn (): array => $panel->getResources());
     }
 
@@ -175,6 +174,8 @@ class QuickCreatePlugin implements Plugin
 
     public function register(Panel $panel): void
     {
+        Livewire::component('quick-create-menu', Components\QuickCreateMenu::class);
+
         $panel
             ->renderHook(
                 name: $this->getRenderHook(),
