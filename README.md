@@ -2,10 +2,10 @@
 
 Plugin for [Filament Panels](https://filamentphp.com) that adds a dropdown menu to the header to quickly create new items from anywhere in your app.
 
-[![Latest Version](https://img.shields.io/github/release/awcodes/filament-quick-create.svg?style=flat-square)](https://github.com/awcodes/filament-quick-create/releases)
-[![MIT Licensed](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Total Downloads](https://img.shields.io/packagist/dt/awcodes/filament-quick-create.svg?style=flat-square)](https://packagist.org/packages/awcodes/filament-quick-create)
-![GitHub Repo stars](https://img.shields.io/github/stars/awcodes/filament-quick-create?style=flat-square)
+[![Latest Version](https://img.shields.io/github/release/awcodes/filament-quick-create.svg?style=flat-square&color=blue&label=Release)](https://github.com/awcodes/filament-quick-create/releases)
+[![MIT Licensed](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE.md)
+[![Total Downloads](https://img.shields.io/packagist/dt/awcodes/filament-quick-create.svg?style=flat-square&color=blue&label=Downloads)](https://packagist.org/packages/awcodes/filament-quick-create)
+[![GitHub Repo stars](https://img.shields.io/github/stars/awcodes/filament-quick-create?style=flat-square&color=blue&label=Stars)](https://github.com/awcodes/filament-quick-create/stargazers)
 
 ## Compatibility
 
