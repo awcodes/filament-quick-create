@@ -16,6 +16,8 @@ Plugin for [Filament Panels](https://filamentphp.com) that adds a dropdown menu 
 | 4.x             | 4.x              |
 | 5.x             | 5.x              |
 
+<!-- [docs_start] -->
+
 ## Installation
 
 Install the package via composer
@@ -281,6 +283,8 @@ public function panel(Panel $panel): Panel
         ])
 }
 ```
+
+<!-- [docs_end] -->
 
 ## Contributing
 
