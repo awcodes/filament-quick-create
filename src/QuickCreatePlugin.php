@@ -12,7 +12,6 @@ use Filament\Support\Concerns\EvaluatesClosures;
 use Filament\View\PanelsRenderHook;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Str;
-use Livewire\Livewire;
 
 class QuickCreatePlugin implements Plugin
 {

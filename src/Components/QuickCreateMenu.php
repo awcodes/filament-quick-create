@@ -15,6 +15,7 @@ use Filament\Facades\Filament;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Schemas\Schema;
+use Filament\Tables\Contracts\HasTable;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
@@ -60,12 +61,23 @@ class QuickCreateMenu extends Component implements HasActions, HasForms
     public function bootedInteractsWithActions(): void
     {
         $this->cacheActions();
+
+        if (filled($originallyMountedActionIndex = array_key_last($this->mountedActions))) {
+            $this->originallyMountedActionIndex = $originallyMountedActionIndex;
+        }
+
+        $this->cacheTraitActions();
+
+        // Boot the InteractsWithTable trait first so the table object is available.
+        if (! $this instanceof HasTable && $this->cacheMountedActions($this->mountedActions) === []) {
+            $this->mountedActions = [];
+        }
     }
 
     public function getActions(): Collection
     {
         return collect($this->resources)
-            ->transform(function (array $resource, $index): CreateAction {
+            ->transform(function (array $resource, int $index): CreateAction {
                 $r = App::make($resource['resource_name']);
                 $canCreateAnother = QuickCreatePlugin::get()->canCreateAnother();
 
