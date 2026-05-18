@@ -12,7 +12,6 @@ use Filament\Support\Concerns\EvaluatesClosures;
 use Filament\View\PanelsRenderHook;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Str;
-use Livewire\Livewire;
 
 class QuickCreatePlugin implements Plugin
 {
@@ -68,7 +67,6 @@ class QuickCreatePlugin implements Plugin
 
     public function boot(Panel $panel): void
     {
-        Livewire::component('quick-create-menu', Components\QuickCreateMenu::class);
         $this->getResourcesUsing(fn (): array => $panel->getResources());
     }
 
