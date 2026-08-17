@@ -1,0 +1,14 @@
+version: 1
+
+title: Quick Create
+
+navigation:
+  - index
+  - installation
+
+  - label: Configuration
+    children:
+      - configuration/resources
+      - configuration/appearance
+      - configuration/modals
+      - configuration/behavior

@@ -96,7 +96,7 @@ public function panel(Panel $panel): Panel
 
 ### Sorting
 
-By default, Quick Create will sort all the displayed options in descending order by Label. This can be disabled should you choose. In which case they will be displayed in the order they are registered with Filament.
+By default, Quick Create will sort all the displayed options alphabetically by Label. This can be disabled should you choose. In which case they will be displayed in the order they are registered with Filament.
 
 ```php
 use Awcodes\QuickCreate\QuickCreatePlugin;
@@ -251,7 +251,7 @@ public function panel(Panel $panel): Panel
 
 ### Render Plugin on a Custom Panel Hook
 
-By default, Quick Create plugin renders using `'panels::user-menu.before'` Filament Panel Render Hook. If you would like to customize this to render at a different render hook, you may use the `renderUsingHook(string $panelHook)` modifier to do so. You may read about the available Render Hooks in Filament PHP [here](https://filamentphp.com/docs/3.x/support/render-hooks#available-render-hooks)
+By default, Quick Create plugin renders using `'panels::user-menu.before'` Filament Panel Render Hook. If you would like to customize this to render at a different render hook, you may use the `renderUsingHook(string $panelHook)` modifier to do so. You may read about the available Render Hooks in Filament PHP [here](https://filamentphp.com/docs/4.x/advanced/render-hooks#available-render-hooks)
 
 ```php
 use Awcodes\QuickCreate\QuickCreatePlugin;
