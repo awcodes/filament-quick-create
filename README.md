@@ -286,6 +286,20 @@ public function panel(Panel $panel): Panel
 
 <!-- [docs_end] -->
 
+## Development
+
+Install the dependencies and start the package Workbench:
+
+```bash
+composer install
+composer serve
+```
+
+The Workbench opens at `http://127.0.0.1:8000/admin`. Sign in with
+`test@example.com` / `password`. The panel includes three resources with distinct
+icons so the Quick Create dropdown and its modal and redirect behaviors can be
+inspected together.
+
 ## Contributing
 
 Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.

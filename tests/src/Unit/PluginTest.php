@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 use Awcodes\QuickCreate\QuickCreatePlugin;
-use Awcodes\QuickCreate\Tests\Fixtures\Resources\Users\UserResource;
 use Filament\Facades\Filament;
 use Filament\View\PanelsRenderHook;
+use Workbench\App\Filament\Resources\Users\UserResource;
 
 beforeEach(function () {
     $this->panel = Filament::getCurrentOrDefaultPanel();

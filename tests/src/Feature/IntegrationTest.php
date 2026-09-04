@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 use Awcodes\QuickCreate\Components\QuickCreateMenu;
 use Awcodes\QuickCreate\QuickCreatePlugin;
-use Awcodes\QuickCreate\Tests\Fixtures\Resources\Authors\AuthorResource;
-use Awcodes\QuickCreate\Tests\Fixtures\Resources\Users\UserResource;
 use Filament\Facades\Filament;
+use Workbench\App\Filament\Resources\Authors\AuthorResource;
+use Workbench\App\Filament\Resources\Users\UserResource;
 
 use function Pest\Livewire\livewire;
 
@@ -23,6 +23,18 @@ it('displays the sidebar view', function () {
     $this->get('/admin')
         ->assertOk()
         ->assertSee('quick-create-component');
+});
+
+it('shows multiple resources with icons in the quick create menu', function () {
+    $this->get('/admin')->assertOk();
+
+    livewire(QuickCreateMenu::class)
+        ->assertViewHas('resources', function (array $resources): bool {
+            $resources = collect($resources);
+
+            return $resources->pluck('label')->all() === ['Author', 'Category', 'User']
+                && $resources->every(fn (array $resource): bool => filled($resource['icon']));
+        });
 });
 
 it('excludes resources', function () {
