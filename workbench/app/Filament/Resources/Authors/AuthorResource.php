@@ -23,7 +23,7 @@ class AuthorResource extends Resource
 {
     protected static ?string $model = Author::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedPencilSquare;
+    protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedPencilSquare;
 
     public static function form(Schema $schema): Schema
     {
@@ -33,7 +33,7 @@ class AuthorResource extends Resource
                     ->required(),
                 TextInput::make('username')
                     ->required()
-                    ->unique(ignorable: fn (?Author $record) => $record),
+                    ->unique(ignorable: fn (?Author $record): ?\Workbench\App\Models\Author => $record),
                 TextInput::make('twitter'),
                 RichEditor::make('bio')
                     ->columnSpanFull(),

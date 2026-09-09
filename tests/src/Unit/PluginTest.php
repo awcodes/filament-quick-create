@@ -46,7 +46,7 @@ it('can set included resources', function () {
         ->toContain(UserResource::class);
 });
 
-it('can set disabled sort', function (bool|Closure $condition) {
+it('can set disabled sort', function (bool | Closure $condition) {
     $this->panel
         ->plugins([
             QuickCreatePlugin::make()
@@ -59,7 +59,7 @@ it('can set disabled sort', function (bool|Closure $condition) {
     fn () => false,
 ]);
 
-it('can set sorting by navigation', function (string|Closure $field) {
+it('can set sorting by navigation', function (string | Closure $field) {
     $this->panel
         ->plugins([
             QuickCreatePlugin::make()
@@ -86,7 +86,7 @@ it('can set registered key bindings', function () {
         ->toBe(['ctrl+shift+a', 'command+shift+a']);
 });
 
-it('can set disabling create another', function (bool|Closure $condition) {
+it('can set disabling create another', function (bool | Closure $condition) {
     $this->panel
         ->plugins([
             QuickCreatePlugin::make()
@@ -99,7 +99,7 @@ it('can set disabling create another', function (bool|Closure $condition) {
     fn () => false,
 ]);
 
-it('can set disabling rounded', function (bool|Closure $condition) {
+it('can set disabling rounded', function (bool | Closure $condition) {
     $this->panel
         ->plugins([
             QuickCreatePlugin::make()
@@ -112,7 +112,7 @@ it('can set disabling rounded', function (bool|Closure $condition) {
     fn () => false,
 ]);
 
-it('can set a label', function (string|Closure $label) {
+it('can set a label', function (string | Closure $label) {
     $this->panel
         ->plugins([
             QuickCreatePlugin::make()
@@ -145,7 +145,7 @@ it('can set being hidden', function () {
     expect(Filament::getPlugin('quick-create')->shouldBeHidden())->toBeTrue();
 });
 
-it('can set being registered with a custom render hook', function (string|Closure|PanelsRenderHook $hook) {
+it('can set being registered with a custom render hook', function (string | Closure | PanelsRenderHook $hook) {
     $this->panel
         ->plugins([
             QuickCreatePlugin::make()
@@ -159,7 +159,7 @@ it('can set being registered with a custom render hook', function (string|Closur
     fn () => PanelsRenderHook::SIDEBAR_NAV_END,
 ]);
 
-it('can set being always shown in modals', function (bool|Closure $condition) {
+it('can set being always shown in modals', function (bool | Closure $condition) {
     $this->panel
         ->plugins([
             QuickCreatePlugin::make()
