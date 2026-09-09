@@ -127,7 +127,7 @@ class QuickCreatePlugin implements Plugin
                 }
 
                 if ($resource->canCreate()) {
-                    $actionName = 'create_'.Str::of($resource->getModel())->replace('\\', '')->snake();
+                    $actionName = 'create_' . Str::of($resource->getModel())->replace('\\', '')->snake();
 
                     return [
                         'resource_name' => $resourceName,
@@ -136,7 +136,7 @@ class QuickCreatePlugin implements Plugin
                         'icon' => $resource->getNavigationIcon(),
                         'action_name' => $actionName,
                         'action' => ! $resource->hasPage('create') || $this->shouldUseModal()
-                            ? 'mountAction(\''.$actionName.'\')'
+                            ? 'mountAction(\'' . $actionName . '\')'
                             : null,
                         'url' => $resource->hasPage('create') && ! $this->shouldUseModal()
                             ? $resource::getUrl('create')
