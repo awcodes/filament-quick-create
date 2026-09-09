@@ -11,6 +11,10 @@ on:
       - "resources/**"
       - "routes/**"
       - "tests/**"
+      # workbench/ is a tracked Testbench app that rector and phpstan analyse
+      # (.github#6), so a workbench-only commit must trigger CI. Without this it
+      # lands on the active branch unchecked and then fails the NEXT unrelated PR.
+      - "workbench/**"
       - "composer.json"
       - "composer.lock"
       - "package.json"
@@ -20,6 +24,9 @@ on:
       - "phpstan.neon*"
       - "rector.php"
       - "pint.json"
+      # bin/ holds the asset build script, so a change here changes the built
+      # bundle without touching resources/.
+      - "bin/**"
       - ".github/workflows/**"
   pull_request:
     branches:
@@ -31,6 +38,10 @@ on:
       - "resources/**"
       - "routes/**"
       - "tests/**"
+      # workbench/ is a tracked Testbench app that rector and phpstan analyse
+      # (.github#6), so a workbench-only commit must trigger CI. Without this it
+      # lands on the active branch unchecked and then fails the NEXT unrelated PR.
+      - "workbench/**"
       - "composer.json"
       - "composer.lock"
       - "package.json"
@@ -40,6 +51,9 @@ on:
       - "phpstan.neon*"
       - "rector.php"
       - "pint.json"
+      # bin/ holds the asset build script, so a change here changes the built
+      # bundle without touching resources/.
+      - "bin/**"
       - ".github/workflows/**"
 
 jobs:
