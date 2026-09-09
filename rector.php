@@ -8,6 +8,10 @@ try {
     return RectorConfig::configure()
         ->withPaths([
             __DIR__.'/src',
+            __DIR__.'/workbench',
+        ])
+        ->withSkip([
+            __DIR__.'/workbench/storage',
         ])
         ->withPreparedSets(
             deadCode: true,
@@ -18,6 +22,6 @@ try {
         )
         ->withPhpSets();
 } catch (Rector\Exception\Configuration\InvalidConfigurationException $e) {
-    echo 'Rector configuration error: '.$e->getMessage().PHP_EOL;
+    echo 'Error: '.$e->getMessage().PHP_EOL;
     exit(1);
 }

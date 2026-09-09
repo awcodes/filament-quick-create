@@ -1,0 +1,49 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Call to an undefined method Awcodes\\QuickCreate\\Components\\QuickCreateMenu\:\:emit\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Components/QuickCreateMenu.php
+
+		-
+			message: '#^Call to an undefined method Filament\\Actions\\Contracts\\HasActions\:\:makeFilamentTranslatableContentDriver\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Components/QuickCreateMenu.php
+
+		-
+			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Components/QuickCreateMenu.php
+
+		-
+			message: '#^Anonymous function should return Illuminate\\Support\\Collection\<\(int\|string\), array\{resource_name\: mixed, label\: string, model\: mixed, icon\: mixed, action_name\: string, action\: string\|null, url\: mixed, navigation\: mixed\}\|null\> but returns Illuminate\\Support\\Collection\<\(int\|string\), array\{resource_name\: mixed, label\: string, model\: mixed, icon\: mixed, action_name\: string, action\: string\|null, url\: mixed, navigation\: mixed\}\|null\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/QuickCreatePlugin.php
+
+		-
+			message: '#^Method Awcodes\\QuickCreate\\QuickCreatePlugin\:\:get\(\) should return static\(Awcodes\\QuickCreate\\QuickCreatePlugin\) but returns Filament\\Contracts\\Plugin\|Filament\\FilamentManager\.$#'
+			identifier: return.type
+			count: 1
+			path: src/QuickCreatePlugin.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Support\\Collection\<\(int\|string\),array\<string, mixed\>\|null\>\:\:sortBy\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: src/QuickCreatePlugin.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Support\\Collection\<\(int\|string\),mixed\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: src/QuickCreatePlugin.php
+
+		-
+			message: '#^Parameter \#2 \$callback of method Illuminate\\Support\\Collection\<\(int\|string\),array\<string, mixed\>\|null\>\:\:when\(\) expects \(callable\(Illuminate\\Support\\Collection\<int\|string, array\{resource_name\: mixed, label\: string, model\: mixed, icon\: mixed, action_name\: string, action\: string\|null, url\: mixed, navigation\: mixed\}\|null\>, bool\)\: Illuminate\\Support\\Collection\<int\|string, array\{resource_name\: mixed, label\: string, model\: mixed, icon\: mixed, action_name\: string, action\: string\|null, url\: mixed, navigation\: mixed\}\|null\>\)\|null, Closure\(mixed\)\: Illuminate\\Support\\Collection\<int\|string, array\{resource_name\: mixed, label\: string, model\: mixed, icon\: mixed, action_name\: string, action\: string\|null, url\: mixed, navigation\: mixed\}\|null\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/QuickCreatePlugin.php

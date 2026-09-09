@@ -1,0 +1,14 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+    - phpstan-baseline.neon
+
+parameters:
+    level: 5
+    reportUnmatchedIgnoredErrors: false
+    paths:
+        - src
+        - workbench
+    excludePaths:
+        analyse:
+            - workbench/storage (?)
+    tmpDir: build/phpstan
