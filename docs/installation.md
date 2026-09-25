@@ -5,19 +5,16 @@ description: Install Quick Create, register it with a panel, and add its views t
 
 # Installation
 
-## Requirements
+## Compatibility
 
-- PHP 8.2 or higher
-- Filament 4.x or 5.x
+| Filament version | Package version |
+|------------------|-----------------|
+| 2.x              | 2.x             |
+| 3.x              | 3.x             |
+| 4.x              | 4.x             |
+| 4.x & 5.x        | 5.x             |
 
-Earlier releases of this package support earlier versions of Filament:
-
-| Package Version | Filament Version |
-| --- | --- |
-| 2.x | 2.x |
-| 3.x | 3.x |
-| 4.x | 4.x |
-| 5.x | 4.x & 5.x |
+Quick Create requires PHP 8.2 or later and `filament/filament`.
 
 ## Install the package
 
