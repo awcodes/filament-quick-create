@@ -1,304 +1,37 @@
 # Quick Create
 
-Plugin for [Filament Panels](https://filamentphp.com) that adds a dropdown menu to the header to quickly create new items from anywhere in your app.
+Plugin for [Filament Panels](https://filamentphp.com) that adds a dropdown menu to the header to quickly create new records from anywhere in your app.
 
 [![Latest Version](https://img.shields.io/github/release/awcodes/filament-quick-create.svg?style=flat-square&color=blue&label=Release)](https://github.com/awcodes/filament-quick-create/releases)
 [![MIT Licensed](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE.md)
 [![Total Downloads](https://img.shields.io/packagist/dt/awcodes/filament-quick-create.svg?style=flat-square&color=blue&label=Downloads)](https://packagist.org/packages/awcodes/filament-quick-create)
 [![GitHub Repo stars](https://img.shields.io/github/stars/awcodes/filament-quick-create?style=flat-square&color=blue&label=Stars)](https://github.com/awcodes/filament-quick-create/stargazers)
+[![Filament Version](https://img.shields.io/badge/Filament-4.x%20%26%205.x-d97706.svg?style=flat-square)](https://filamentphp.com/docs/5.x/introduction/installation)
+
+## Documentation
+
+The full documentation lives at **[docs.aw.codes/quick-create](https://docs.aw.codes/quick-create/5.x)**.
 
 ## Compatibility
 
-| Package Version | Filament Version |
-|-----------------|------------------|
-| 2.x             | 2.x              |
-| 3.x             | 3.x              |
-| 4.x             | 4.x              |
-| 5.x             | 4.x & 5.x        |
-
-<!-- [docs_start] -->
+| Filament version | Package version |
+|------------------|-----------------|
+| 2.x              | 2.x             |
+| 3.x              | 3.x             |
+| 4.x              | 4.x             |
+| 4.x & 5.x        | 5.x             |
 
 ## Installation
-
-Install the package via composer
 
 ```bash
 composer require awcodes/filament-quick-create
 ```
 
-> [!IMPORTANT]
-> If you have not set up a custom theme and are using Filament Panels follow the instructions in the [Filament Docs](https://filamentphp.com/docs/4.x/styling/overview#creating-a-custom-theme) first.
+Then register the plugin on your panel and add the package's views to your Tailwind theme, as described in [Installation](https://docs.aw.codes/quick-create/5.x/installation).
 
-After setting up a custom theme add the plugin's views to your theme css file.
+## Changelog
 
-```css
-@source '../../../../vendor/awcodes/filament-quick-create/resources/**/*.blade.php';
-```
-
-## Usage
-
-By default, Quick Create will use all resources that are registered with current Filament context. All resources will follow the authorization used by Filament, meaning that if a user doesn't have permission to create a record it will not be listed in the dropdown.
-
-### Registering the plugin
-
-```php
-use Awcodes\QuickCreate\QuickCreatePlugin;
-
-public function panel(Panel $panel): Panel
-{
-    return $panel
-        ->plugins([
-            QuickCreatePlugin::make(),
-        ])
-}
-```
-
-> **Warning**
-> Excludes and includes are not meant to work together. You should use one or the other, but not both.
-
-### Excluding Resources
-
-Excluding resources will filter them out of the registered resources to prevent them from displaying in the dropdown.
-
-```php
-use Awcodes\QuickCreate\QuickCreatePlugin;
-
-public function panel(Panel $panel): Panel
-{
-    return $panel
-        ->plugins([
-            QuickCreatePlugin::make()
-                ->excludes([
-                    \App\Filament\Resources\UserResource::class,
-                ]),
-        ])
-}
-```
-
-### Including Resources
-
-Sometimes, it might be easier to only include some resources instead of filtering them out. For instance, you have 30 resources but only want to display 3 to 4 in the dropdown.
-
-```php
-use Awcodes\QuickCreate\QuickCreatePlugin;
-
-public function panel(Panel $panel): Panel
-{
-    return $panel
-        ->plugins([
-            QuickCreatePlugin::make()
-                ->includes([
-                    \App\Filament\Resources\UserResource::class,
-                ]),
-        ])
-}
-```
-
-### Sorting
-
-By default, Quick Create will sort all the displayed options alphabetically by Label. This can be disabled should you choose. In which case they will be displayed in the order they are registered with Filament.
-
-```php
-use Awcodes\QuickCreate\QuickCreatePlugin;
-
-public function panel(Panel $panel): Panel
-{
-    return $panel
-        ->plugins([
-            QuickCreatePlugin::make()
-                ->sort(false),
-        ])
-}
-```
-
-### Sorting by resource navigation
-
-By default, Quick Create will sort all the displayed options by Label. This can be changed to resource navigation sort should you choose. In which case they will be displayed in the order they are displayed in the navigation.
-
-```php
-use Awcodes\QuickCreate\QuickCreatePlugin;
-
-public function panel(Panel $panel): Panel
-{
-    return $panel
-        ->plugins([
-            QuickCreatePlugin::make()
-                ->sortBy('navigation'),
-        ])
-}
-```
-
-### Registering keybindings
-
-You can attach keyboard shortcuts to trigger the Quick Create dropdown. To configure these, pass the keyBindings() method to the configuration:
-
-```php
-use Awcodes\QuickCreate\QuickCreatePlugin;
-
-public function panel(Panel $panel): Panel
-{
-    return $panel
-        ->plugins([
-            QuickCreatePlugin::make()
-                ->keyBindings(['command+shift+a', 'ctrl+shift+a']),
-        ])
-}
-```
-
-### Create Another
-
-By default, the ability to create another record will respect the settings of your 'create record' or 'list records' create action. This can be overridden to either enable or disable it for all resources with the `createAnother()` method.
-
-```php
-use Awcodes\QuickCreate\QuickCreatePlugin;
-
-public function panel(Panel $panel): Panel
-{
-    return $panel
-        ->plugins([
-            QuickCreatePlugin::make()
-                ->createAnother(false),
-        ])
-}
-```
-
-### Appearance
-
-#### Rounded
-
-By default, the Quick Create button will be fully rounded if you would like to have a more square button you can disable the rounding with the `rounded()` method.
-
-```php
-use Awcodes\QuickCreate\QuickCreatePlugin;
-
-public function panel(Panel $panel): Panel
-{
-    return $panel
-        ->plugins([
-            QuickCreatePlugin::make()
-                ->rounded(false),
-        ])
-}
-```
-
-#### Hiding Icons
-
-If you prefer to not show icons for the items in the menu you can disable them with the `hiddenIcons()` method.
-
-```php
-use Awcodes\QuickCreate\QuickCreatePlugin;
-
-public function panel(Panel $panel): Panel
-{
-    return $panel
-        ->plugins([
-            QuickCreatePlugin::make()
-                ->hiddenIcons(),
-        ])
-}
-```
-
-#### Setting a label
-
-If you prefer to show a label with the plus icon you can set it using the `label()` method and passing your label to it.
-
-```php
-use Awcodes\QuickCreate\QuickCreatePlugin;
-
-public function panel(Panel $panel): Panel
-{
-    return $panel
-        ->plugins([
-            QuickCreatePlugin::make()
-                ->label('New'),
-        ])
-}
-```
-
-### Slide Overs
-
-By default, Quick Create will render simple resources in a standard modal. If you would like to render them in a slide over instead you may use the `slideOver()` modifier to do so.
-
-```php
-use Awcodes\QuickCreate\QuickCreatePlugin;
-
-public function panel(Panel $panel): Panel
-{
-    return $panel
-        ->plugins([
-            QuickCreatePlugin::make()
-                ->slideOver(),
-        ])
-}
-```
-
-### Hiding Quick Create
-
-By default, Quick Create is visible if there are registered resources. If you would like to hide it you may use the `hidden()` modifier to do so.
-
-```php
-use Awcodes\QuickCreate\QuickCreatePlugin;
-
-public function panel(Panel $panel): Panel
-{
-    return $panel
-        ->plugins([
-            QuickCreatePlugin::make()
-                ->hidden(fn() => Filament::getTenant()->requiresOnboarding()),
-        ])
-}
-```
-
-### Render Plugin on a Custom Panel Hook
-
-By default, Quick Create plugin renders using `'panels::user-menu.before'` Filament Panel Render Hook. If you would like to customize this to render at a different render hook, you may use the `renderUsingHook(string $panelHook)` modifier to do so. You may read about the available Render Hooks in Filament PHP [here](https://filamentphp.com/docs/4.x/advanced/render-hooks#available-render-hooks)
-
-```php
-use Awcodes\QuickCreate\QuickCreatePlugin;
-use Filament\View\PanelsRenderHook;
-
-public function panel(Panel $panel): Panel
-{
-    return $panel
-        ->plugins([
-            QuickCreatePlugin::make()
-                ->renderUsingHook(PanelsRenderHook::SIDEBAR_NAV_END),
-        ])
-}
-```
-
-### Forcing all resources to use modals
-
-Quick create will automatically determine if it should redirect to a create page or to show the form in a modal based on the resource. If you prefer to force all items to be show in a modal you can do so with the `alwaysShowModal()` modifier.
-
-```php
-use Awcodes\QuickCreate\QuickCreatePlugin;
-
-public function panel(Panel $panel): Panel
-{
-    return $panel
-        ->plugins([
-            QuickCreatePlugin::make()
-                ->alwaysShowModal(),
-        ])
-}
-```
-
-<!-- [docs_end] -->
-
-## Development
-
-Install the dependencies and start the package Workbench:
-
-```bash
-composer install
-composer serve
-```
-
-The Workbench opens at `http://127.0.0.1:8000/admin`. Sign in with
-`test@example.com` / `password`. The panel includes three resources with distinct
-icons so the Quick Create dropdown and its modal and redirect behaviors can be
-inspected together.
+Please see the [releases](https://github.com/awcodes/filament-quick-create/releases) for what has changed recently.
 
 ## Contributing
 
