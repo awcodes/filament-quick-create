@@ -35,6 +35,20 @@ Before submitting a pull request:
 - Check the codebase to ensure that your feature doesn't already exist.
 - Check the pull requests to ensure that another person hasn't already submitted the feature or fix.
 
+## Development
+
+Install the dependencies and start the package Workbench:
+
+```bash
+composer install
+composer serve
+```
+
+The Workbench opens at `http://127.0.0.1:8000/admin`. Sign in with
+`test@example.com` / `password`. The panel includes three resources with distinct
+icons so the Quick Create dropdown and its modal and redirect behaviors can be
+inspected together.
+
 ## Requirements
 
 If the project maintainer has any additional requirements, you will find them listed here.
