@@ -32,7 +32,7 @@ it('shows multiple resources with icons in the quick create menu', function () {
         ->assertViewHas('resources', function (array $resources): bool {
             $resources = collect($resources);
 
-            return $resources->pluck('label')->all() === ['Author', 'Category', 'User']
+            return $resources->pluck('label')->all() === ['Author', 'Category', 'Post', 'Tag', 'User']
                 && $resources->every(fn (array $resource): bool => filled($resource['icon']));
         });
 });

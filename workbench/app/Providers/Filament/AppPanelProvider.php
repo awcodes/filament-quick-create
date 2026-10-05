@@ -27,21 +27,30 @@ use Workbench\App\Filament\Resources\Posts\PostResource;
 use Workbench\App\Filament\Resources\Tags\TagResource;
 use Workbench\App\Filament\Resources\Users\UserResource;
 
-class AdminPanelProvider extends PanelProvider
+/**
+ * A second panel with the plugin's appearance and modal options changed from their defaults, so both can be
+ * inspected side by side with the admin panel.
+ */
+class AppPanelProvider extends PanelProvider
 {
     /** @throws Exception */
     public function panel(Panel $panel): Panel
     {
         return $panel
-            ->default()
-            ->id('admin')
-            ->path('admin')
+            ->id('app')
+            ->path('app')
             ->login(Login::class)
             ->brandName('Quick Create')
             ->plugin(
                 QuickCreatePlugin::make()
-                    // A hook on the create modal, so Focus can frame it without Filament's classes.
-                    ->modalExtraAttributes(['data-focus' => 'quick-create-modal']),
+                    ->label('New')
+                    ->rounded(false)
+                    ->tooltip('Create something new')
+                    ->hiddenIcons()
+                    ->slideOver()
+                    ->modalHeading('New :label')
+                    ->modalDescription('Fill in the details for this :label.')
+                    ->modalExtraAttributes(['data-focus' => 'quick-create-slide-over']),
             )
             ->theme(Theme::make('workbench')->html(
                 fn (): string => route('workbench.theme'),

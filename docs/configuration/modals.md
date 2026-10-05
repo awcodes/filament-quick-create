@@ -35,6 +35,9 @@ QuickCreatePlugin::make()
     ->slideOver()
 ```
 
+![A New Post form opened from Quick Create in a slide-over on the right of the Posts page, with the heading "New Post" and the description "Fill in the details for this Post." set by modalHeading() and modalDescription()](assets/slide-over-light.png#gh-light-mode-only)
+![A New Post form opened from Quick Create in a slide-over on the right of the Posts page, with the heading "New Post" and the description "Fill in the details for this Post." set by modalHeading() and modalDescription()](assets/slide-over-dark.png#gh-dark-mode-only)
+
 ## Modal width
 
 `modalWidths()` sets the width. A single value applies to every resource:

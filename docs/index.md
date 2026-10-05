@@ -9,6 +9,9 @@ Quick Create adds a plus button to a [Filament Panel](https://filamentphp.com), 
 
 ## What appears in the menu
 
+![The Quick Create plus button in the panel's top bar, with its dropdown open listing Author, Category, Post, Tag, and User, each with its resource's navigation icon](assets/menu-light.png#gh-light-mode-only)
+![The Quick Create plus button in the panel's top bar, with its dropdown open listing Author, Category, Post, Tag, and User, each with its resource's navigation icon](assets/menu-dark.png#gh-dark-mode-only)
+
 Every resource registered with the current panel, filtered by two rules:
 
 1. **Authorization.** Each resource's `canCreate()` is checked, so a user who cannot create a record never sees it offered. This is Filament's own authorization — there is nothing extra to configure.
@@ -20,6 +23,9 @@ Entries are labelled with the resource's model label and carry its navigation ic
 > When tenancy is enabled and there is no current tenant, the menu lists nothing. It fills in once a tenant is set.
 
 ## Modal or page
+
+![A New post modal opened from Quick Create over the Posts page, with Title, Slug, Published at, and Excerpt fields and Create, Create & create another, and Cancel buttons](assets/modal-light.png#gh-light-mode-only)
+![A New post modal opened from Quick Create over the Posts page, with Title, Slug, Published at, and Excerpt fields and Create, Create & create another, and Cancel buttons](assets/modal-dark.png#gh-dark-mode-only)
 
 Choosing an entry does one of two things, decided per resource:
 
