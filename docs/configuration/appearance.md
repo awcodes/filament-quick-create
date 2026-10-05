@@ -31,6 +31,9 @@ QuickCreatePlugin::make()
     ->label('New')
 ```
 
+![A square Quick Create button labelled New, configured with rounded(false), label('New'), and hiddenIcons(), with its dropdown open listing resources without icons](assets/label-light.png#gh-light-mode-only)
+![A square Quick Create button labelled New, configured with rounded(false), label('New'), and hiddenIcons(), with its dropdown open listing resources without icons](assets/label-dark.png#gh-dark-mode-only)
+
 ## Tooltip
 
 `tooltip()` attaches a tooltip to the button. Called with no argument it uses the package's own translated string, "Quick Create":
@@ -46,6 +49,9 @@ Pass a string for your own wording:
 QuickCreatePlugin::make()
     ->tooltip('Create something new')
 ```
+
+![The Quick Create button with a Create something new tooltip shown beneath it](assets/tooltip-light.png#gh-light-mode-only)
+![The Quick Create button with a Create something new tooltip shown beneath it](assets/tooltip-dark.png#gh-dark-mode-only)
 
 There is no tooltip unless you ask for one. Note that the button always carries an accessible name regardless — the tooltip is a visual affordance, not the label a screen reader announces.
 

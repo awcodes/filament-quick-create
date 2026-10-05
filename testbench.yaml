@@ -2,6 +2,7 @@ laravel: '@testbench'
 
 providers:
   - Workbench\App\Providers\Filament\AdminPanelProvider
+  - Workbench\App\Providers\Filament\AppPanelProvider
 
 migrations:
   - workbench/database/migrations
