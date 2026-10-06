@@ -107,3 +107,38 @@ it('has correct settings', function () {
         ->assertSet('label', 'test')
         ->assertSet('keyBindings', ['ctrl+shift+a']);
 });
+
+it('renders the trigger as an icon button', function () {
+    $this->panel
+        ->plugins([
+            QuickCreatePlugin::make()
+                ->iconButton()
+                ->tooltip('Create something')
+                ->keyBindings(['ctrl+shift+a']),
+        ]);
+
+    $this->get('/admin')->assertOk();
+
+    livewire(QuickCreateMenu::class)
+        ->assertSet('iconButton', true)
+        ->assertSeeHtml('fi-icon-btn')
+        ->assertSeeHtml('x-ref="triggerButton"')
+        ->assertSeeHtml('x-mousetrap.global.ctrl-shift-a="toggleDropdown"')
+        ->assertSeeHtml('Create something')
+        ->assertDontSeeHtml('bg-gray-100');
+});
+
+it('ignores the icon button when a label is set', function () {
+    $this->panel
+        ->plugins([
+            QuickCreatePlugin::make()
+                ->iconButton()
+                ->label('New'),
+        ]);
+
+    $this->get('/admin')->assertOk();
+
+    livewire(QuickCreateMenu::class)
+        ->assertDontSeeHtml('fi-icon-btn')
+        ->assertSeeHtml('bg-gray-100');
+});

@@ -1,7 +1,14 @@
 @php
+    use Illuminate\View\ComponentAttributeBag;
+
     $keyBindings = collect($keyBindings ?? [])
         ->map(fn (string $keyBinding): string => str_replace('+', '-', $keyBinding))
         ->implode('.');
+
+    $triggerAttributes = new ComponentAttributeBag($keyBindings ? [
+        'x-ref' => 'triggerButton',
+        "x-mousetrap.global.{$keyBindings}" => 'toggleDropdown',
+    ] : []);
 @endphp
 
 <div class="quick-create-component"
@@ -17,34 +24,46 @@
     @if ($resources && $this->shouldBeHidden() === false)
         <x-filament::dropdown placement="bottom-end" :teleport="true">
             <x-slot name="trigger">
-                <button
-                    @if($keyBindings)
-                        x-ref="triggerButton"
-                        x-mousetrap.global.{{ $keyBindings }}="toggleDropdown"
-                    @endif
-                    @class([
-                        'flex flex-shrink-0 bg-gray-100 items-center justify-center text-primary-500 hover:text-primary-900 dark:bg-gray-800 hover:bg-primary-500 dark:hover:bg-primary-500',
-                        'rounded-full' => $rounded,
-                        'rounded-md' => ! $rounded,
-                        'size-8' => ! $label,
-                        'py-1 ps-3 pe-4 gap-1' => $label,
-                    ])
-                    @if($tooltip)
-                        x-tooltip="{
-                            content: '{{ $tooltip }}'
-                        }"
-                    @endif
-                    aria-label="{{ __('quick-create::quick-create.button_label') }}"
-                >
-                    <x-filament::icon
-                        alias="filament-quick-create::add"
+                @if ($iconButton && blank($label))
+                    <x-filament::icon-button
+                        color="gray"
                         icon="heroicon-o-plus"
-                        class="size-5"
+                        icon-alias="filament-quick-create::add"
+                        icon-size="lg"
+                        :label="__('quick-create::quick-create.button_label')"
+                        :tooltip="$tooltip"
+                        :attributes="$triggerAttributes"
                     />
-                    @if ($label)
-                        <span class="">{{ $label }}</span>
-                    @endif
-                </button>
+                @else
+                    <button
+                        @if($keyBindings)
+                            x-ref="triggerButton"
+                            x-mousetrap.global.{{ $keyBindings }}="toggleDropdown"
+                        @endif
+                        @class([
+                            'flex flex-shrink-0 bg-gray-100 items-center justify-center text-primary-500 hover:text-primary-900 dark:bg-gray-800 hover:bg-primary-500 dark:hover:bg-primary-500',
+                            'rounded-full' => $rounded,
+                            'rounded-md' => ! $rounded,
+                            'size-8' => ! $label,
+                            'py-1 ps-3 pe-4 gap-1' => $label,
+                        ])
+                        @if($tooltip)
+                            x-tooltip="{
+                                content: '{{ $tooltip }}'
+                            }"
+                        @endif
+                        aria-label="{{ __('quick-create::quick-create.button_label') }}"
+                    >
+                        <x-filament::icon
+                            alias="filament-quick-create::add"
+                            icon="heroicon-o-plus"
+                            class="size-5"
+                        />
+                        @if ($label)
+                            <span class="">{{ $label }}</span>
+                        @endif
+                    </button>
+                @endif
             </x-slot>
 
             <x-filament::dropdown.list>
