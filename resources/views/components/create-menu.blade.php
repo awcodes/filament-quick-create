@@ -52,6 +52,7 @@
                     <x-filament::dropdown.list.item
                         :icon="$hiddenIcons ? null : $resource['icon']"
                         :wire:click="$resource['action']"
+                        x-on:click="close()"
                         :href="$resource['url']"
                         :tag="$resource['url'] ? 'a' : 'button'"
                         class="{{ 'quick-create-action-' . str($resource['label'])->slug() }}"

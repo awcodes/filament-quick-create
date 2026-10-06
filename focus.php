@@ -38,8 +38,6 @@ return ScreenshotSuite::make()
             ->waitFor($menu)
             ->click('.quick-create-action-post')
             ->waitFor('[data-focus="quick-create-modal"]:visible')
-            // The package leaves the menu open behind the modal; hide it so the backdrop shows only the page.
-            ->hide($menu)
             ->focus('[data-focus="quick-create-modal"]:visible'),
 
         // The /app panel: rounded(false), label('New'), and hiddenIcons().

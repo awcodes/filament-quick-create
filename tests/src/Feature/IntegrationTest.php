@@ -37,6 +37,13 @@ it('shows multiple resources with icons in the quick create menu', function () {
         });
 });
 
+it('closes the menu when an entry is chosen', function () {
+    $this->get('/admin')->assertOk();
+
+    // Entries that open a modal or slide-over would otherwise leave the menu open behind it.
+    expect(substr_count(livewire(QuickCreateMenu::class)->html(), 'x-on:click="close()"'))->toBe(5);
+});
+
 it('excludes resources', function () {
     $this->panel
         ->plugins([
