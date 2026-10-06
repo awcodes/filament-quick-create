@@ -112,6 +112,28 @@ it('can set disabling rounded', function (bool | Closure $condition) {
     fn () => false,
 ]);
 
+it('can set icon button', function (bool | Closure $condition) {
+    $this->panel
+        ->plugins([
+            QuickCreatePlugin::make()
+                ->iconButton($condition),
+        ]);
+
+    expect(Filament::getPlugin('quick-create')->isIconButton())->toBeTrue();
+})->with([
+    true,
+    fn () => true,
+]);
+
+it('does not use an icon button by default', function () {
+    $this->panel
+        ->plugins([
+            QuickCreatePlugin::make(),
+        ]);
+
+    expect(Filament::getPlugin('quick-create')->isIconButton())->toBeFalse();
+});
+
 it('can set a label', function (string | Closure $label) {
     $this->panel
         ->plugins([

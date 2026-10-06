@@ -40,6 +40,8 @@ class AdminPanelProvider extends PanelProvider
             ->brandName('Quick Create')
             ->plugin(
                 QuickCreatePlugin::make()
+                    // `?trigger=icon` switches to the icon button, so Focus can capture both triggers.
+                    ->iconButton(fn (): bool => request()->query('trigger') === 'icon')
                     // A hook on the create modal, so Focus can frame it without Filament's classes.
                     ->modalExtraAttributes(['data-focus' => 'quick-create-modal']),
             )

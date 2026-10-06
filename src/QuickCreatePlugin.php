@@ -33,6 +33,8 @@ class QuickCreatePlugin implements Plugin
 
     protected bool | Closure | null $rounded = null;
 
+    protected bool | Closure $iconButton = false;
+
     protected string | Closure | null $renderUsingHook = null;
 
     protected bool | Closure | null $hiddenIcons = null;
@@ -80,6 +82,13 @@ class QuickCreatePlugin implements Plugin
     public function includes(array $resources): static
     {
         $this->includes = $resources;
+
+        return $this;
+    }
+
+    public function iconButton(bool | Closure $condition = true): static
+    {
+        $this->iconButton = $condition;
 
         return $this;
     }
@@ -164,6 +173,11 @@ class QuickCreatePlugin implements Plugin
     public function isSortable(): bool
     {
         return $this->evaluate($this->sort);
+    }
+
+    public function isIconButton(): bool
+    {
+        return (bool) $this->evaluate($this->iconButton);
     }
 
     public function isRounded(): bool
