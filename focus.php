@@ -31,6 +31,14 @@ return ScreenshotSuite::make()
             ->focus($menu)
             ->padding(64),
 
+        // iconButton(): the trigger as a plain Filament icon button, with the menu open beneath it.
+        Screenshot::make('icon-button')
+            ->visit('/admin?trigger=icon')
+            ->click($button)
+            ->waitFor($menu)
+            ->focus($menu)
+            ->padding(64),
+
         // Posts have no create page, so choosing the entry opens its form in a modal.
         Screenshot::make('modal')
             ->visit('/admin/posts')

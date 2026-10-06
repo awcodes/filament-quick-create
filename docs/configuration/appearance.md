@@ -1,6 +1,6 @@
 ---
 title: Appearance
-description: Change the Quick Create button's shape, label, and tooltip, and hide the menu's icons.
+description: Change the Quick Create button's shape, style, label, and tooltip, and hide the menu's icons.
 ---
 
 # Appearance
@@ -21,6 +21,20 @@ public function panel(Panel $panel): Panel
         ]);
 }
 ```
+
+## Icon button
+
+`iconButton()` drops the button's filled background and renders the trigger as a plain Filament icon button. It's the same style as the notifications bell in the top bar, so it sits in line with the panel's other top-bar icons:
+
+```php
+QuickCreatePlugin::make()
+    ->iconButton()
+```
+
+![The Quick Create trigger as a plain grey plus icon in the panel's top bar, with no background, and its dropdown open beneath it](assets/icon-button-light.png#gh-light-mode-only)
+![The Quick Create trigger as a plain grey plus icon in the panel's top bar, with no background, and its dropdown open beneath it](assets/icon-button-dark.png#gh-dark-mode-only)
+
+An icon button has no room for text, so `iconButton()` has no effect when `label()` is set. `rounded()` doesn't apply either, because Filament's icon button has its own shape. `tooltip()` and `keyBindings()` work as usual.
 
 ## Adding a label
 
